@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<head>
+  <title>Search database</title>
+  <link rel="stylesheet" href="{{url_for('static', filename='assets/stylesheet/main.css') }}">
+</head>
+
+<body>
+    <header class="primary-header container group">
+        <h1 class="logo" ><a href="/">Universitätsspital Basel<br>Stiftungsdatenbank</a></h1>
+    </header>
+    <!---->
+    <section class="row ">
+        <div class="container">
+        <fieldset class="foundation-group">
+        <h1>Suche nach passenden Stiftungen</h1>
+        <form action="/dosearch" method="post">
+            <label class="foundation-checkbox">Art der Förderung
+            <ul>
+                <li><input type="checkbox" name="kindOfBoost" value="Projektförderung" id="projekt">
+                    <label for="projekt">Projektförderung</label></li>
+                <li><input type="checkbox" name="kindOfBoost" value="Personenförderung" id="person">
+                    <label for="person">Personenförderung</label></li>
+                <li><input type="checkbox" name="kindOfBoost" value="Preis" id="preis">
+                    <label for="preis">Preis</label></li>
+            </ul>
+            </label>
+            <label class="foundation-checkbox">Abteilungen
+                <ul>
+                    <li><input type="checkbox" name="groups" value="AOD" id="AOD">
+                        <label for="AOD">AOD</label></li>
+                    <li><input type="checkbox" name="groups" value="CTD" id="CTD">
+                        <label for="CTD">CTD</label></li>
+                    <li><input type="checkbox" name="groups" value="MSK" id="MSK">
+                        <label for="MSK">MSK</label></li>
+                    <li><input type="checkbox" name="groups" value="DINR" id="DINR">
+                        <label for="DINR">DINR</label></li>
+                    <li><input type="checkbox" name="groups" value="IR" id="IR">
+                        <label for="IR">IR</label></li>
+                    <li><input type="checkbox" name="groups" value="RPh" id="RPh">
+                        <label for="RPh">RPh</label></li>
+                    <li><input type="checkbox" name="groups" value="RCH" id="RCH">
+                        <label for="RCH">RCH</label></li>
+                    <li><input type="checkbox" name="groups" value="NUK" id="NUK">
+                        <label for="NUK">NUK</label></li>
+                </ul>
+            </label>
+            <label class="foundation-checkbox">Breite des Stiftungsfokus
+                <ul>
+                    <li><input type="checkbox" name="broadness" /
+                        value="Enger Fokus;(radiologisch-klinisch, MR-Physik etc.)" id="eng">
+                        <label for="eng">Enger Fokus (radiologisch-klinisch, MR-Physik etc.)</label>
+                    </li>
+                    <li><input type="checkbox" name="broadness" value="Weiterer Fokus;(Medizin, Physik, Chemie)" id="breit">
+                        <label for="breit">Weiterer Fokus (Medizin, Physik, Chemie)</label>
+                    </li>
+                    <li><input type="checkbox" name="broadness" value="Breiter Fokus;(Gesellschaft etc.)" id="weit">
+                        <label for="weit">Breiter Fokus (Gesellschaft etc.)</label>
+                    </li>
+                </ul>
+            </label>
+            <label class="foundation-checkbox">Ich bin (für Ärzte)
+                <ul>
+                    <li><input type="checkbox" name="conditionsD" value="Prof" id="profmed">
+                        <label for="profmed">Prof.</label>
+                    </li>
+                    <li><input type="checkbox" name="conditionsD" value="PD" id="pdMed">
+                        <label for="pdMed">PD</label>
+                    </li>
+                    <li><input type="checkbox" name="conditionsD" value="PhD" id="phdMed">
+                        <label for="phdMed">PhD</label>
+                    </li>
+                    <li><input type="checkbox" name="conditionsD" value="MD" id="md">
+                        <label for="md">MD</label>
+                    </li>
+                    <li><input type="checkbox" name="conditionsD" value="Cand. med." id="cmed">
+                        <label for="cmed">Cand. med.</label>
+                    </li>
+                </ul>
+            </label>
+            <label class="foundation-checkbox">Ich bin (für Wissenschaftler)
+                <ul>
+                    <li><input type="checkbox" name="conditionsS" value="Prof" id="prof">
+                        <label for="prof">Prof.</label>
+                    </li>
+                    <li><input type="checkbox" name="conditionsS" value="PhD" id="phd">
+                        <label for="phd">PhD</label>
+                    </li>
+                    <li><input type="checkbox" name="conditionsS" value="Doktorand" id="doktorand">
+                        <label for="doktorand">Doktorand</label>
+                    </li>
+                    <li><input type="checkbox" name="conditionsS" value="Master" id="master">
+                        <label for="master">Master</label>
+                    </li>
+                </ul>
+            </label>
+            <label class="foundation-checkbox">Sonstiges
+                <ul>
+                    <li><input type="checkbox" name="conditionsE" value="Schweizer" id="ch">
+                        <label for="ch">Schweizer</label></li>
+                    <li><input type="checkbox" name="conditionsE" value="Basler" id="bs">
+                        <label for="bs">Basler</label></li>
+                    <li><input type="checkbox" name="conditionsE" value="Frauen" id="frauen">
+                        <label for="frauen">Frauen</label></li>
+                    <li><input type="checkbox" name="conditionsE" value="EU" id="europunion">
+                        <label for="europunion">EU</label></li>
+                    <li><input type="number" name="conditionAge" id="age" min="18">
+                        <label for="age">Mein Alter</label>
+                    </li>
+                </ul>
+            </label>
+        <input class="super_btn btn" style="color: #fff" name="submit" value="Suchen" type="submit">
+        </form>
+        </fieldset>
+        </div>
+
+    </section>
+
+    <footer class="primary-footer container group">Homepage designed by Manibu</footer>
+</body>

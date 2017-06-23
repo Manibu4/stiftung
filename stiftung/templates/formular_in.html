@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<head>
+  <title>Formular</title>
+  <link rel="stylesheet" href="{{url_for('static', filename='assets/stylesheet/main.css') }}">
+</head>
+
+<body>
+    <header class="primary-header container group">
+        <h1 class="logo" ><a href="/">Universitätsspital Basel<br>Stiftungsdatenbank</a></h1>
+    </header>
+    <!---->
+    <section class="row ">
+        <div class="container">
+        <fieldset class="foundation-group">
+        <h1>Erfassen einer neuen Stiftung</h1>
+        <form action="/formularadd" method="post">
+            <input type="hidden" name="mode" value="{{mode}}">
+            <label>Name der Stiftung
+                <input class="large-input" type="text" name="name" required="" value="{{blubber['foundationname']}}"></label>
+            <label>Schlüsselwort
+                <input class="large-input" type="text" name="keyword" value="{{blubber['keyword']}}"></label>
+            <label>Kontaktinformation
+                <input class="large-input" type="text" name="adress" placeholder="Strasse Nr, PLZ Ort" value="{{blubber['address']}}">
+                <input class="large-input" type="text" name="phone" placeholder="Telefonnummer" value="{{blubber['pnumber']}}">
+                <input class="large-input" type="email" name="mail" placeholder="Mail" value="{{blubber['mail']}}">
+                <input class="large-input" type="url" name="website" placeholder="http://" value="{{blubber['website']}}"></label>
+                <input class="large-input" type="text" name="contactperson" placeholder="Kontaktperson" value="{{blubber['contactperson']}}"></label>
+            <label>Zweck
+                <textarea class="large-input" type="textarea" name="zweck">{{blubber['purpose']}}</textarea></label>
+            <label class="foundation-checkbox">Art der Förderung
+            <ul>
+                <li><input type="checkbox" name="kindOfBoost" value="Projektförderung" id="projekt" /
+                    {% if 'Projekt' in blubber['kindofboost'] %}checked{% else %}{% endif %}>
+                    <label for="projekt">Projektförderung</label></li>
+                <li><input type="checkbox" name="kindOfBoost" value="Personenförderung" id="person"/
+                    {% if 'Personen' in blubber['kindofboost'] %}checked{% else %}{% endif %}>
+                    <label for="person">Personenförderung</label></li>
+                <li><input type="checkbox" name="kindOfBoost" value="Preis" id="preis"/
+                    {% if 'Preis' in blubber['kindofboost'] %}checked{% else %}{% endif %}>
+                    <label for="preis">Preis</label></li>
+            </ul>
+            </label>
+            <label class="foundation-nebenand">
+                Fördersumme
+                <input type="number" name="money" step="0.1" min="0" value="{{blubber['sum']}}">
+                Währung<select name="currency">
+                    <option></option>
+                    <option value="CHF"/
+                        {% if 'CHF' in blubber['currency'] %}selected{% else %}{% endif %}>CHF</option>
+                    <option value="EUR"/
+                        {% if 'EUR' in blubber['currency'] %}selected{% else %}{% endif %}>EUR</option>
+                </select>
+            </label><br>
+            <label class="foundation-checkbox">Schlagworte
+                <ul>
+                    <li><input type="checkbox" name="hitword" value="Herz" id="Herz"/
+                        {% if 'Herz' in blubber['hitword'] %}checked{% else %}{% endif %}>
+                        <label for="Herz">Herz</label></li>
+                    <li><input type="checkbox" name="hitword" value="Alter" id="Alter"/
+                        {% if 'Alter' in blubber['hitword'] %}checked{% else %}{% endif %}>
+                        <label for="Alter">Alter</label></li>
+                    <li><input type="checkbox" name="hitword" value="Soziales" id="Soziales"/
+                        {% if 'Soziales' in blubber['hitword'] %}checked{% else %}{% endif %}>
+                        <label for="">Soziales</label></li>
+                </ul>
+            </label>
+            <label class="foundation-checkbox">Abteilungen
+                <ul>
+                    <li><input type="checkbox" name="groups" value="AOD" id="AOD"/
+                        {% if 'AOD' in blubber['groups'] %}checked{% else %}{% endif %}>
+                        <label for="AOD">AOD</label></li>
+                    <li><input type="checkbox" name="groups" value="CTD" id="CTD"/
+                        {% if 'CTD' in blubber['groups'] %}checked{% else %}{% endif %}>
+                        <label for="CTD">CTD</label></li>
+                    <li><input type="checkbox" name="groups" value="MSK" id="MSK"/
+                        {% if 'MSK' in blubber['groups'] %}checked{% else %}{% endif %}>
+                        <label for="MSK">MSK</label></li>
+                    <li><input type="checkbox" name="groups" value="DINR" id="DINR"/
+                        {% if 'DINR' in blubber['groups'] %}checked{% else %}{% endif %}>
+                        <label for="DINR">DINR</label></li>
+                    <li><input type="checkbox" name="groups" value="IR" id="IR"/
+                        {% if 'IR' in blubber['groups'] %}checked{% else %}{% endif %}>
+                        <label for="IR">IR</label></li>
+                    <li><input type="checkbox" name="groups" value="RPh" id="RPh"/
+                        {% if 'RPh' in blubber['groups'] %}checked{% else %}{% endif %}>
+                        <label for="RPh">RPh</label></li>
+                    <li><input type="checkbox" name="groups" value="RCH" id="RCH"/
+                        {% if 'RCH' in blubber['groups'] %}checked{% else %}{% endif %}>
+                        <label for="RCH">RCH</label></li>
+                    <li><input type="checkbox" name="groups" value="NUK" id="NUK"/
+                        {% if 'NUK' in blubber['groups'] %}checked{% else %}{% endif %}>
+                        <label for="NUK">NUK</label></li>
+                </ul>
+            </label>
+            <label class="foundation-checkbox">Breite des Stiftungsfokus
+                <ul>
+                    <li><input type="checkbox" name="broadness" value="Enger Fokus;(radiologisch-klinisch, MR-Physik etc.)" id="eng"/
+                        {% if 'Enger' in blubber['broadness'] %}checked{% else %}{% endif %}>
+                        <label for="eng">Enger Fokus (radiologisch-klinisch, MR-Physik etc.)</label>
+                    </li>
+                    <li><input type="checkbox" name="broadness" value="Weiterer Fokus;(Medizin, Physik, Chemie)" id="breit"/
+                        {% if 'Weiterer' in blubber['broadness'] %}checked{% else %}{% endif %}>
+                        <label for="breit">Weiterer Fokus (Medizin, Physik, Chemie)</label>
+                    </li>
+                    <li><input type="checkbox" name="broadness" value="Breiter Fokus;(Gesellschaft etc.)" id="weit"/
+                        {% if 'Breiter' in blubber['broadness'] %}checked{% else %}{% endif %}>
+                        <label for="weit">Breiter Fokus (Gesellschaft etc.)</label>
+                    </li>
+                </ul>
+            </label>
+            <label class="foundation-checkbox">Bedingungen &Aumlrzte
+                <ul>
+                    <li><input type="checkbox" name="conditionsD" value="Prof" id="profmed"/
+                        {% if 'Prof' in blubber['condDoc'] %}checked{% else %}{% endif %}>
+                        <label for="profmed">Prof.</label>
+                    </li>
+                    <li><input type="checkbox" name="conditionsD" value="PD" id="pdMed"/
+                        {% if 'PD' in blubber['condDoc'] %}checked{% else %}{% endif %}>
+                        <label for="pdMed">PD</label>
+                    </li>
+                    <li><input type="checkbox" name="conditionsD" value="PhD" id="phdMed"/
+                        {% if 'PhD' in blubber['condDoc'] %}checked{% else %}{% endif %}>
+                        <label for="phdMed">PhD</label>
+                    </li>
+                    <li><input type="checkbox" name="conditionsD" value="MD" id="md"/
+                        {% if 'MD' in blubber['condDoc'] %}checked{% else %}{% endif %}>
+                        <label for="md">MD</label>
+                    </li>
+                    <li><input type="checkbox" name="conditionsD" value="Cand. med." id="cmed"/
+                        {% if 'Cand' in blubber['condDoc'] %}checked{% else %}{% endif %}>
+                        <label for="cmed">Cand. med.</label>
+                    </li>
+                </ul>
+            </label>
+            <label class="foundation-checkbox">Bedingungen Wissenschaftler
+                <ul>
+                    <li><input type="checkbox" name="conditionsS" value="Prof" id="prof"/
+                        {% if 'Prof' in blubber['condSci'] %}checked{% else %}{% endif %}>
+                        <label for="prof">Prof.</label>
+                    </li>
+                    <li><input type="checkbox" name="conditionsS" value="PhD" id="phd"/
+                        {% if 'PhD' in blubber['condSci'] %}checked{% else %}{% endif %}>
+                        <label for="phd">PhD</label>
+                    </li>
+                    <li><input type="checkbox" name="conditionsS" value="Doktorand" id="doktorand"/
+                        {% if 'Doktorand' in blubber['condSci'] %}checked{% else %}{% endif %}>
+                        <label for="doktorand">Doktorand</label>
+                    </li>
+                    <li><input type="checkbox" name="conditionsS" value="Master" id="master"/
+                        {% if 'Master' in blubber['condSci'] %}checked{% else %}{% endif %}>
+                        <label for="master">Master</label>
+                    </li>
+                </ul>
+            </label>
+            <label class="foundation-checkbox">Andere Bedingungen
+                <ul>
+                    <li><input type="checkbox" name="conditionsE" value="Schweizer" id="ch"/
+                        {% if 'Schweizer' in blubber['condElse'] %}checked{% else %}{% endif %}>
+                        <label for="ch">Schweizer</label></li>
+                    <li><input type="checkbox" name="conditionsE" value="Basler" id="bs"/
+                        {% if 'Basler' in blubber['condElse'] %}checked{% else %}{% endif %}>
+                        <label for="bs">Basler</label></li>
+                    <li><input type="checkbox" name="conditionsE" value="Frauen" id="frauen"/
+                        {% if 'Frauen' in blubber['condElse'] %}checked{% else %}{% endif %}>
+                        <label for="frauen">Frauen</label></li>
+                    <li><input type="checkbox" name="conditionsE" value="EU" id="europunion"/
+                        {% if 'EU' in blubber['condElse'] %}checked{% else %}{% endif %}>
+                        <label for="europunion">EU</label></li>
+                    <li><input type="number" name="conditionAge" id="age" min="18" value="{{blubber['condAge']}}">
+                        <label for="age">Max. Alter</label>
+                    </li>
+                </ul>
+            </label>
+            <label class="foundation-nebenand foundation-checkbox">Einreichefrist<br><br>
+                <label for="deadline">Datum</label>
+                <input type="date" name="deadline" id="deadline" pattern="[0-9]{2}.[0-9]{2}.[0-9]{2}"/
+                 placeholder="dd.mm.yy" value="{{blubber['deadline']}}">
+                <label for="pending">Laufend</label>
+                <input type="checkbox" name="pending" value="Laufend" id="pending"/
+                    {% if blubber['pending'] %}checked{% else %}{% endif %}>
+                <label for="noInfo">Keine Angabe</label>
+                <input type="checkbox" name="noInfo" value="Keine Angabe" id="noInfo"/
+                        {% if blubber['noInfo'] %}checked{% else %}{% endif %}><br>
+            </label>
+            <label>Zeitpunkt mdl. Kontakt
+                <input type="date" name="timeContact" id="timeContact" pattern="[0-9]{2}.[0-9]{2}.[0-9]{2}" /
+                 max="17-21-06" placeholder="dd.mm.yy" value="{{blubber['timeContact']}}"></label><br>
+            <label>Ergebnis
+                <textarea class="large-input" type="textarea" name="resContact" id="resContact">{{blubber['resContact']}}</textarea></label>
+            <label>Datum der letzten Änderung
+                    <input type="date" name="lastChange" value="{{today}}"></label><br>
+        <input class="super_btn btn" style="color: #fff" name="submit" value="Eintrag speichern" type="submit">
+        </form>
+        </fieldset>
+        </div>
+
+    </section>
+
+    <footer class="primary-footer container group">Homepage designed by Manibu</footer>
+</body>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<head>
+  <title>Formular</title>
+  <link rel="stylesheet" href="{{url_for('static', filename='assets/stylesheet/main.css') }}">
+</head>
+
+<body>
+    <header class="primary-header container group">
+        <h1 class="logo" ><a href="/">Universitätsspital Basel<br>Stiftungsdatenbank</a></h1>
+    </header>
+    <!---->
+    <section class="row">
+        <div class="grid">
+            <h2>Resultate Deiner Suche</h2>
+        <table class="res">
+            <thead>
+                <tr>
+                    <th> Stiftung </th>
+                    {% for item in items %}
+                        <th>{{item["foundationname"]}} </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th> Kontakt </th>
+                    {% for item in items %}
+                        <td>{{item["address"]}}<br>
+                            {{item["pnumber"]}}<br>
+                            {{item["mail"]}}<br>
+                            {{item["website"]}}<br>
+                            {{item["contactperson"]}}
+                        </td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th>Schlüsselwort</th>
+                    {% for item in items %}
+                        <td>{{item["keyword"]}}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th>Schlagworte</th>
+                    {% for display in displays %}
+                        <td>
+                            {% for i in display["hitword"] %}
+                                {{i}}<br>
+                            {% endfor %}
+                        </td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th> Art der Förderung </th>
+                    {% for display in displays %}
+                        <td>
+                            {% for i in display["kindofboost"] %}
+                                {{i}}<br>
+                            {% endfor %}
+                        </td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th> Fördermittel </th>
+                    {% for item in items %}
+                        <td>{{item["sum"]}} {{item["currency"]}}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th> Abteilungen </th>
+                    {% for display in displays %}
+                        <td>
+                            {% for i in display["groups"] %}
+                                {{i}}<br>
+                            {% endfor %}
+                        </td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th> Breite des Stiftungsfokus </th>
+                    {% for display in displays %}
+                        <td>
+                            {% for i in display["broadness"] %}
+                                {{i}}<br>
+                            {% endfor %}
+                        </td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th> Bedingungen<br>(für Ärzte) </th>
+                    {% for display in displays %}
+                        <td>
+                            {% for i in display["condDoc"] %}
+                                {{i}}<br>
+                            {% endfor %}
+                        </td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th> Bedingungen<br>(für Wissenschaftler) </th>
+                    {% for display in displays %}
+                        <td>
+                            {% for i in display["condSci"] %}
+                                {{i}}<br>
+                            {% endfor %}
+                        </td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th> Weitere Bedingungen </th>
+                    {% for display in displays %}
+                        <td>
+                            {% for i in display["condElse"] %}
+                                {{i}}<br>
+                            {% endfor %}
+                        </td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th> Maximales Alter </th>
+                    {% for item in items %}
+                        <td>{{item["condAge"]}}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th> Einreichefrist </th>
+                    {% for display in displays %}
+                        <td>
+                            {% for i in display["frist"] %}
+                                {{i}}<br>
+                            {% endfor %}
+                        </td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th> Letzte Änderung </th>
+                    {% for item in items %}
+                        <td>{{item["lastChange"]}}</td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </section>
+
+    <footer class="primary-footer container group">Homepage designed by Manibu</footer>
+</body>

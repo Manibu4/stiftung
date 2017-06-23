@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<head>
+  <title>Search</title>
+  <link rel="stylesheet" href="{{url_for('static', filename='assets/stylesheet/main.css') }}">
+</head>
+
+<body>
+    <header class="primary-header container group">
+        <h1 class="logo" ><a href="/">Universitätsspital Basel<br>Stiftungsdatenbank</a></h1>
+    </header>
+    <section class="row">
+        <div class="grid">
+        <table>
+        <tr>
+            <td style="padding-right: 10px">
+                <a class="btn super_btn" href="/showsearch">Datenbank durchsuchen</a>
+            </td>
+            <td>
+                <a class="btn super_btn" href="/formular" method='get'>Neue Stiftung erfassen</a>
+            </td>
+        </tr>
+        </table>
+        </div>
+    </section>
+    <section class="row">
+        <div class="grid">
+            <h2>Liste der Stiftungen in der Datenbank</h2>
+        <table width=100%>
+            {% for item in items %}
+                <tr>
+                    <td>{{item["foundationname"]}}</td>
+                    <td style="text-align: right"><a class="btn" href="/formular?id={{item['ID']}}">Eintrag bearbeiten</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        </div>
+    </section>
+
+    <footer class="primary-footer container group">Homepage designed by Manibu</footer>
+</body>
+</html>
