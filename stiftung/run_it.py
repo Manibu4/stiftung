@@ -7,7 +7,7 @@ from database import create_connection, new_foundation, \
 
 blu = Flask(__name__)
 blu.debug = True
-database = 'stiftung/database/foundations.db'
+database = 'stiftung/foundations.db'
 
 
 def get_db():
@@ -153,4 +153,3 @@ def do_search():
 
     displays = make_nice_display(items)
     return render_template('results.html', items=items, displays=displays)
-
