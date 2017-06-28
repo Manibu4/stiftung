@@ -1,66 +1,45 @@
-import logging
 import sqlite3
-from sqlite3 import Error
 
 def create_connection(db_file):
     """ create a database connection to a SQLite database """
-    logging.debug('Opening connection to db')
     conn = sqlite3.connect(db_file)
-    print(sqlite3.version)
     return conn
-
-
-def search_db(cursor, input_params, input_values):
-    """ Searches through DB based on the inputs """
-    return results
 
 
 def new_foundation(conn, values):
     """ Creates a new database entry for a foundation """
     cursor = conn.cursor()
-    cursor.execute("SELECT foundationname FROM foundations WHERE foundationname LIKE ?", (values[0],))
+    cursor.execute("""SELECT foundationname FROM foundations WHERE
+                      foundationname LIKE ?""", (values[0],))
     exists = cursor.fetchone()
 
     if exists:
         print("Entry for this foundation already exists")
     else:
-        cursor.execute("INSERT INTO foundations VALUES (NULL, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?)", values)
+        cursor.execute("""INSERT INTO foundations VALUES
+        (NULL, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?)""", values)
         conn.commit()
 
 
 def edit_foundation(conn, values):
     """ Creates a new database entry for a foundation """
     cursor = conn.cursor()
-    cursor.execute("UPDATE foundations SET foundationname=? WHERE id=?", (values[0], values[24],))
-    cursor.execute("UPDATE foundations SET keyword=? WHERE id=?", (values[1], values[24],))
-    cursor.execute("UPDATE foundations SET address=? WHERE id=?", (values[2], values[24],))
-    cursor.execute("UPDATE foundations SET pnumber=? WHERE id=?", (values[3], values[24],))
-    cursor.execute("UPDATE foundations SET mail=? WHERE id=?", (values[4], values[24],))
-    cursor.execute("UPDATE foundations SET website=? WHERE id=?", (values[5], values[24],))
-    cursor.execute("UPDATE foundations SET contactperson=? WHERE id=?", (values[6], values[24],))
-    cursor.execute("UPDATE foundations SET purpose=? WHERE id=?", (values[7], values[24],))
-    cursor.execute("UPDATE foundations SET kindofboost=? WHERE id=?", (values[8], values[24],))
-    cursor.execute("UPDATE foundations SET sum=? WHERE id=?", (values[9], values[24],))
-    cursor.execute("UPDATE foundations SET currency=? WHERE id=?", (values[10], values[24],))
-    cursor.execute("UPDATE foundations SET hitword=? WHERE id=?", (values[11], values[24],))
-    cursor.execute("UPDATE foundations SET groups=? WHERE id=?", (values[12], values[24],))
-    cursor.execute("UPDATE foundations SET broadness=? WHERE id=?", (values[13], values[24],))
-    cursor.execute("UPDATE foundations SET condDoc=? WHERE id=?", (values[14], values[24],))
-    cursor.execute("UPDATE foundations SET condSci=? WHERE id=?", (values[15], values[24],))
-    cursor.execute("UPDATE foundations SET condElse=? WHERE id=?", (values[16], values[24],))
-    cursor.execute("UPDATE foundations SET condAge=? WHERE id=?", (values[17], values[24],))
-    cursor.execute("UPDATE foundations SET deadline=? WHERE id=?", (values[18], values[24],))
-    cursor.execute("UPDATE foundations SET pending=? WHERE id=?", (values[19], values[24],))
-    cursor.execute("UPDATE foundations SET noInfo=? WHERE id=?", (values[20], values[24],))
-    cursor.execute("UPDATE foundations SET resContact=? WHERE id=?", (values[21], values[24],))
-    cursor.execute("UPDATE foundations SET timeContact=? WHERE id=?", (values[22], values[24],))
-    cursor.execute("UPDATE foundations SET lastChange=? WHERE id=?", (values[23], values[24],))
+    cursor.execute("""UPDATE foundations SET foundationname=?, keyword=?,
+      address=?, pnumber=?, mail=?, website=?, contactperson=?, purpose=?,
+      kindofboost=?, sum=?, currency=?, hitword=?, groups=?, broadness=?,
+      condDoc=?, condSci=?, condElse=?, condAge=?, deadline=?, pending=?,
+      noInfo=?, resContact=?, timeContact=?, lastChange=? WHERE id=?""", \
+      (values[0], values[1], values[2], values[3], values[4], values[5], \
+       values[6], values[7], values[8], values[9], values[10], values[11], \
+       values[12], values[13], values[14], values[15], values[16], values[17], \
+       values[18], values[19], values[20], values[21], values[22], values[23], \
+       values[24],))
     conn.commit()
 
 
 def handle_checkboxes(box_values):
     box_joint_vals = ''
-    if len(box_values)>1:
+    if len(box_values) > 1:
         for i in range(0, len(box_values)-1):
             box_joint_vals = box_joint_vals + ''.join(box_values[i])+';'
 
@@ -72,20 +51,11 @@ def handle_checkboxes(box_values):
 
 
 def unique_check(dl, pd, ni):
-    if (dl != '' and pd == 'pending'):
-        print('Fall1')
-        print(dl)
-        print(pd)
+    if dl != '' and pd == 'pending':
         return 1
-    elif (dl != '' and ni == 'noInfo'):
-        print('Fall2')
-        print(dl)
-        print(ni)
+    elif dl != '' and ni == 'noInfo':
         return 1
-    elif (pd == 'pending' and ni == 'noInfo'):
-        print('Fall3')
-        print(pd)
-        print(ni)
+    elif pd == 'pending' and ni == 'noInfo':
         return 1
     else:
         return 0
@@ -93,8 +63,8 @@ def unique_check(dl, pd, ni):
 
 def make_nice_display(text_in):
     display = []
-    if len(text_in) > 0:
-        for i in range(0,len(text_in)):
+    if text_in:
+        for i in range(0, len(text_in)):
             cont = {}
             cont["kindofboost"] = text_in[i]["kindofboost"].split(";")
             cont["hitword"] = text_in[i]["hitword"].split(";")
@@ -125,53 +95,24 @@ def find_entries(flist, array_search):
     array3 = array_search[3].split(";")
     array4 = array_search[4].split(";")
     array5 = array_search[5].split(";")
-    for i in range(0, len(flist)):
-        blu = flist[i]
-        ctr = 0
-        if (blu["condAge"] and array_search[6]):
-            for j in range(0, len(array0)):
-                if array0[j] in blu["kindofboost"]:
-                    ctr += 1
-            for j in range(0, len(array1)):
-                if array1[j] in blu["groups"]:
-                    ctr += 1
-            for j in range(0, len(array2)):
-                if array2[j] in blu["broadness"]:
-                    ctr += 1
-            for j in range(0, len(array3)):
-                if array3[j] in blu["condDoc"]:
-                    ctr += 1
-            for j in range(0, len(array4)):
-                if array4[j] in blu["condSci"]:
-                    ctr += 1
-            for j in range(0, len(array5)):
-                if array5[j] in blu["condElse"]:
-                    ctr += 1
-            if (ctr == (len(array0) + len(array1) + len(array2) +
-                        len(array3) + len(array4) + len(array5)) and
-                        int(array_search[6]) <= int(blu["condAge"]) ):
-                array.append(int(blu["id"]))
-        else:
-            for j in range(0, len(array0)):
-                if array0[j] in blu["kindofboost"]:
-                    ctr += 1
-            for j in range(0, len(array1)):
-                if array1[j] in blu["groups"]:
-                    ctr += 1
-            for j in range(0, len(array2)):
-                if array2[j] in blu["broadness"]:
-                    ctr += 1
-            for j in range(0, len(array3)):
-                if array3[j] in blu["condDoc"]:
-                    ctr += 1
-            for j in range(0, len(array4)):
-                if array4[j] in blu["condSci"]:
-                    ctr += 1
-            for j in range(0, len(array5)):
-                if array5[j] in blu["condElse"]:
-                    ctr += 1
-            if (ctr == (len(array0) + len(array1) + len(array2) +
-                        len(array3) + len(array4) + len(array5)) ):
-                array.append(int(blu["id"]))
+    array6 = array_search[6]
+
+    for one_item in flist:
+        zero = one_item["kindofboost"].split(";")
+        one = one_item["groups"].split(";")
+        two = one_item["broadness"].split(";")
+        three = one_item["condDoc"].split(";")
+        four = one_item["condSci"].split(";")
+        five = one_item["condElse"].split(";")
+        six = one_item["condAge"]
+
+        if ((array0 == [''] or zero == [''] or set(array0) < set(zero)) and
+                (array1 == [''] or one == [''] or set(array1) < set(one)) and
+                (array2 == [''] or two == [''] or set(array2) < set(two)) and
+                (array3 == [''] or three == [''] or set(array3) < set(three)) and
+                (array4 == [''] or four == [''] or set(array4) < set(four)) and
+                (array5 == [''] or five == [''] or set(array5) < set(five)) and
+                (array6 == '' or six == '' or int(array6) <= int(six))):
+            array.append(int(one_item["id"]))
 
     return array
