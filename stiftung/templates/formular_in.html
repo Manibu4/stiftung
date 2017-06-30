@@ -40,6 +40,15 @@
                 <li><input type="checkbox" name="kindOfBoost" value="Preis" id="preis"/
                     {% if 'Preis' in blubber['kindofboost'] %}checked{% else %}{% endif %}>
                     <label for="preis">Preis</label></li>
+                <li><input type="checkbox" name="kindOfBoost" value="Druckkostenbeiträge" id="druck"/
+                    {% if 'Druck' in blubber['kindofboost'] %}checked{% else %}{% endif %}>
+                    <label for="druck">Druckkostenbeiträge</label></li>
+                <li><input type="checkbox" name="kindOfBoost" value="Reisekosten" id="reise"/
+                    {% if 'Reisek' in blubber['kindofboost'] %}checked{% else %}{% endif %}>
+                    <label for="reise">Reisekosten</label></li>
+                <li><input type="checkbox" name="kindOfBoost" value="Auslandaufenthalte" id="ausland"/
+                    {% if 'Ausland' in blubber['kindofboost'] %}checked{% else %}{% endif %}>
+                    <label for="ausland">Auslandaufenthalte</label></li>
             </ul>
             </label>
             <label class="foundation-nebenand">
@@ -174,15 +183,18 @@
                 </ul>
             </label>
             <label class="foundation-nebenand foundation-checkbox">Einreichefrist<br><br>
-                <label for="deadline">Datum</label>
-                <input type="date" name="deadline" id="deadline" pattern="[0-9]{2}.[0-9]{2}.[0-9]{2}"/
-                 placeholder="dd.mm.yy" value="{{blubber['deadline']}}">
+                <label for="deadline1">Datum 1:</label>
+                <input type="date" name="deadline1" id="deadline1" pattern="[0-9]{2}.[0-9]{2}" placeholder="dd.mm"/
+                  {% if blubber['deadline'] %}value="{{blubber['deadline'][0:5]}}"{% endif %}>
+                 <label for="deadline2">Datum 2:</label>
+                <input type="date" name="deadline2" id="deadline2" pattern="[0-9]{2}.[0-9]{2}" placeholder="dd.mm"/
+                  {% if (blubber['deadline']|length==11) %}value="{{blubber['deadline'][6:11]}}"{% endif %}><br>
                 <label for="pending">Laufend</label>
                 <input type="checkbox" name="pending" value="Laufend" id="pending"/
                     {% if blubber['pending'] %}checked{% else %}{% endif %}>
                 <label for="noInfo">Keine Angabe</label>
                 <input type="checkbox" name="noInfo" value="Keine Angabe" id="noInfo"/
-                        {% if blubber['noInfo'] %}checked{% else %}{% endif %}><br>
+                        {% if blubber['noInfo'] %}checked{% else %}{% endif %}><br><br>
             </label>
             <label>Zeitpunkt mdl. Kontakt
                 <input type="date" name="timeContact" id="timeContact" pattern="[0-9]{2}.[0-9]{2}.[0-9]{2}" /

@@ -68,7 +68,16 @@ def formular_add():
     money = request.form["money"]
     currency = request.form["currency"]
     condition_age = request.form["conditionAge"]
-    deadline = request.form["deadline"]
+    deadline1 = request.form["deadline1"]
+    deadline2 = request.form["deadline2"]
+    deadline = ''
+    if deadline1 and deadline2:
+        deadline = ''.join(deadline1) + ';' + ''.join(deadline2)
+    elif deadline1:
+        deadline = deadline1
+    elif deadline2:
+        deadline = deadline2
+
     res_contact = request.form["resContact"]
     time_contact = request.form["timeContact"]
     last_change = request.form["lastChange"]
