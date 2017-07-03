@@ -118,6 +118,16 @@
                     {% endfor %}
                 </tr>
                 <tr>
+                    <th> Sonstiges </th>
+                    {% for display in displays %}
+                        <td>
+                            {% for i in display["condEText"] %}
+                                {{i}}<br>
+                            {% endfor %}
+                        </td>
+                    {% endfor %}
+                </tr>
+                <tr>
                     <th> Maximales Alter </th>
                     {% for item in items %}
                         <td>{{item["condAge"]}}</td>

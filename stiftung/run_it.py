@@ -1,21 +1,29 @@
+""" This file contains the initialisation routines for the db
+    and all the routines including some html flie.
+"""
+
 import datetime
 import sqlite3
 from flask import Flask, request, redirect, url_for, render_template
-from database import create_connection, new_foundation, \
+from stiftung.database import create_connection, new_foundation, \
      handle_checkboxes, edit_foundation, unique_check, make_nice_display, \
      find_entries
 
 blu = Flask(__name__)
 blu.debug = True
-database = 'stiftung/foundations.db'
+path_to_db = 'stiftung/foundations.db'
 
 
 def get_db():
-    datab = create_connection(database)
+    """ Create a connection to the sqlite db and return it """
+    datab = create_connection(path_to_db)
     return datab
 
 
 def init_db():
+    """ Fetch the database from 'get_db'
+        and return the connection and cursor object
+    """
     conn = get_db()
     with blu.open_resource('schema.sql', mode='r') as f:
         cursor = conn.cursor()
@@ -25,10 +33,13 @@ def init_db():
 
 @blu.route('/')
 def main():
+    """ Initialise the connection to the db
+        Fetch all rows which are already stored and
+        display the list of all names on the main page
+    """
     #return render_template('index.html')
     #query ganzi db (limit 20)
     conn, cursor = init_db()
-    conn = get_db()
     conn.row_factory = sqlite3.Row
     cursor = conn.execute('SELECT ID, foundationname FROM foundations')
     items = cursor.fetchall()
@@ -37,6 +48,11 @@ def main():
 
 @blu.route('/formular')
 def formular_in():
+    """ This function displays the input form.
+        Either the fields in the form are empty, if a new entry is created
+        or all entries which already have been saved for this foundation name
+        appear in the according field in the form (they can be modified).
+    """
     now = datetime.datetime.now()
     today = now.strftime("%d.%m.%y")
     if request.args.get('id'):
@@ -53,6 +69,13 @@ def formular_in():
 
 @blu.route('/formularadd', methods=['POST'])
 def formular_add():
+    """ Add a new entry to the database
+        If the input comes from an 'edit', the old values which are stored
+        in the database entry will be replaced by the new ones.
+        If the input is a 'new' one, check if there already exists an entry
+        in the db for the proposed foundation name.
+        If yes, an error will appear. If not, add the entry to the db.
+    """
     conn = get_db()
     cursor = conn.cursor()
 
@@ -78,6 +101,14 @@ def formular_add():
     elif deadline2:
         deadline = deadline2
 
+    pending = request.form.get("pending")
+    no_info = request.form.get("noInfo")
+    unique = unique_check(deadline, pending, no_info)
+    if unique == 1:
+        return render_template('error2.html')
+
+    cond_e_text = request.form["condEText"]
+
     res_contact = request.form["resContact"]
     time_contact = request.form["timeContact"]
     last_change = request.form["lastChange"]
@@ -97,17 +128,11 @@ def formular_add():
     conditions_e = request.form.getlist("conditionsE")
     conditions_e = handle_checkboxes(conditions_e)
 
-    pending = request.form.get("pending")
-    no_info = request.form.get("noInfo")
-
     array = [name, keyword, adress, phone, mail, website, contact_person, zweck,
              kind_of_boost, money, currency, hitword, groups, broadness, conditions_d,
-             conditions_s, conditions_e, condition_age, deadline, pending, no_info,
-             res_contact, time_contact, last_change]
+             conditions_s, conditions_e, condition_age, cond_e_text, deadline, pending,
+             no_info, res_contact, time_contact, last_change]
 
-    unique = unique_check(deadline, pending, no_info)
-    if unique == 1:
-        return render_template('error2.html')
     if mode == 'new':
         cursor.execute("""SELECT foundationname FROM foundations WHERE
                           foundationname LIKE ?""", (name,))
@@ -127,11 +152,16 @@ def formular_add():
 
 @blu.route('/showsearch')
 def show_search():
+    """ Render the form to search for entries in the db """
     return render_template('formular_search.html')
 
 
 @blu.route('/dosearch', methods=['POST'])
 def do_search():
+    """ Take input from the search form
+        Check for matching entries in the db (find_entries)
+        and display the result (make_nice_display)
+    """
     conn = get_db()
     conn.row_factory = sqlite3.Row
     cursor = conn.execute('SELECT * FROM foundations')

@@ -25,7 +25,7 @@
                 <input class="large-input" type="text" name="adress" placeholder="Strasse Nr, PLZ Ort" value="{{blubber['address']}}">
                 <input class="large-input" type="text" name="phone" placeholder="Telefonnummer" value="{{blubber['pnumber']}}">
                 <input class="large-input" type="email" name="mail" placeholder="Mail" value="{{blubber['mail']}}">
-                <input class="large-input" type="url" name="website" placeholder="http://" value="{{blubber['website']}}"></label>
+                <input class="large-input" type="url" name="website" placeholder="http://" value="{{blubber['website']}}">
                 <input class="large-input" type="text" name="contactperson" placeholder="Kontaktperson" value="{{blubber['contactperson']}}"></label>
             <label>Zweck
                 <textarea class="large-input" type="textarea" name="zweck">{{blubber['purpose']}}</textarea></label>
@@ -49,11 +49,14 @@
                 <li><input type="checkbox" name="kindOfBoost" value="Auslandaufenthalte" id="ausland"/
                     {% if 'Ausland' in blubber['kindofboost'] %}checked{% else %}{% endif %}>
                     <label for="ausland">Auslandaufenthalte</label></li>
+                <li><input type="checkbox" name="kindOfBoost" value="Keine Angabe" id="kangabe"/
+                    {% if 'Angabe' in blubber['kindofboost'] %}checked{% else %}{% endif %}>
+                    <label for="kangabe">Keine Angabe</label></li>
             </ul>
             </label>
             <label class="foundation-nebenand">
                 Fördersumme
-                <input type="number" name="money" step="0.1" min="0" value="{{blubber['sum']}}">
+                <input type="text" name="money" value="{{blubber['sum']}}" style="width:110px;margin:0 15px 0 10px">
                 Währung<select name="currency">
                     <option></option>
                     <option value="CHF"/
@@ -179,6 +182,9 @@
                         <label for="europunion">EU</label></li>
                     <li><input type="number" name="conditionAge" id="age" min="18" value="{{blubber['condAge']}}">
                         <label for="age">Max. Alter</label>
+                    </li>
+                    <li><input class="large-input" type="text" name="condEText" placeholder="Sonstiges"/
+                        value="{{blubber['condEText']}}">
                     </li>
                 </ul>
             </label>
