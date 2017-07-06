@@ -59,7 +59,7 @@ def formular_in():
         get_id = request.args.get('id')
         conn = get_db()
         conn.row_factory = sqlite3.Row
-        cursor = conn.execute('SELECT * FROM foundations where id=?', get_id)
+        cursor = conn.execute('SELECT * FROM foundations where id=?', (get_id,) )
         items = cursor.fetchone()
         return render_template('formular_in.html', blubber=items, mode='edit', today=today)
     else:
