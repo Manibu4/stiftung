@@ -108,15 +108,15 @@
             </label>
             <label class="foundation-checkbox">Breite des Stiftungsfokus
                 <ul>
-                    <li><input type="checkbox" name="broadness" value="Enger Fokus;(radiologisch-klinisch, MR-Physik etc.)" id="eng"/
+                    <li><input type="checkbox" name="broadness" value="Enger Fokus (radiologisch-klinisch, MR-Physik etc.)" id="eng"/
                         {% if 'Enger' in blubber['broadness'] %}checked{% else %}{% endif %}>
                         <label for="eng">Enger Fokus (radiologisch-klinisch, MR-Physik etc.)</label>
                     </li>
-                    <li><input type="checkbox" name="broadness" value="Weiterer Fokus;(Medizin, Physik, Chemie)" id="breit"/
+                    <li><input type="checkbox" name="broadness" value="Weiterer Fokus (Medizin, Physik, Chemie)" id="breit"/
                         {% if 'Weiterer' in blubber['broadness'] %}checked{% else %}{% endif %}>
                         <label for="breit">Weiterer Fokus (Medizin, Physik, Chemie)</label>
                     </li>
-                    <li><input type="checkbox" name="broadness" value="Breiter Fokus;(Gesellschaft etc.)" id="weit"/
+                    <li><input type="checkbox" name="broadness" value="Breiter Fokus (Gesellschaft etc.)" id="weit"/
                         {% if 'Breiter' in blubber['broadness'] %}checked{% else %}{% endif %}>
                         <label for="weit">Breiter Fokus (Gesellschaft etc.)</label>
                     </li>
@@ -192,7 +192,7 @@
                 <label for="deadline1">Datum 1:</label>
                 <input type="date" name="deadline1" id="deadline1" pattern="[0-9]{2}.[0-9]{2}" placeholder="dd.mm"/
                   {% if blubber['deadline'] %}value="{{blubber['deadline'][0:5]}}"{% endif %}>
-                 <label for="deadline2">Datum 2:</label>
+                <label for="deadline2">Datum 2:</label>
                 <input type="date" name="deadline2" id="deadline2" pattern="[0-9]{2}.[0-9]{2}" placeholder="dd.mm"/
                   {% if (blubber['deadline']|length==11) %}value="{{blubber['deadline'][6:11]}}"{% endif %}><br>
                 <label for="pending">Laufend</label>

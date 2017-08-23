@@ -4,6 +4,7 @@
 <head>
   <title>Formular</title>
   <link rel="stylesheet" href="{{url_for('static', filename='assets/stylesheet/main.css') }}">
+  <link rel="stylesheet" href="https://unpkg.com/tachyons@4.7.0/css/tachyons.min.css"/>
 </head>
 
 <body>
@@ -13,144 +14,104 @@
     <!---->
     <section class="row">
         <div class="grid">
-            <h2>Resultate Deiner Suche</h2>
-        <table class="res">
-            <thead>
-                <tr>
-                    <th> Stiftung </th>
-                    {% for item in items %}
-                        <th>{{item["foundationname"]}} </th>
-                    {% endfor %}
+        <h2>Die Suche hat {{n_res}} Resultate ergeben: </h2><br>
+        {% for i in range(0, items | length) %}
+        <div class="card">
+        <table class="res f5">
+            <thead> <tr>
+                <td colspan="2" class="fw4"> {{ items[i]["foundationname"] }} </td>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th> Kontakt </th>
-                    {% for item in items %}
-                        <td>{{item["address"]}}<br>
-                            {{item["pnumber"]}}<br>
-                            {{item["mail"]}}<br>
-                            {{item["website"]}}<br>
-                            {{item["contactperson"]}}
-                        </td>
-                    {% endfor %}
-                </tr>
+                <td class="machez"> Kontakt: </td>
+                <td>{{ items[i]["contactperson"] }}<br>
+                    {{ items[i]["address"] }}<br>
+                    {{ items[i]["pnumber"] }}<br>
+                    {{ items[i]["mail"] }}<br>
+                    {{ items[i]["website"] }}
+                    
+                </td> 
+                </tr> 
+                
+                {% if items[i]["keyword"] %}<tr>
+                <td> Schlüsselwort: </td>
+                <td> {{ items[i]["keyword"] }} </td>
+                </tr>{% endif %}
+
+                {% if items[i]["hitword"] %}<tr>
+                <td> Schlagworte: </td>
+                <td> {{ items[i]["hitword"] }}</td>
+                </tr>{% endif %}
+                
+                {% if items[i]["kindofboost"] %}<tr>
+                <td> Art der Förderung: </td>
+                <td> {{ items[i]["kindofboost"] }} </td>
+                </tr>{% endif %}
+
+                {% if items[i]["sum"] %}<tr>
+                <td> Fördermittel: </td>
+                <td> {{ items[i]["sum"] }} {{ items[i]["currency"] }} </td>
+                </tr>{% endif %}
+
+                {% if items[i]["groups"] %}<tr>
+                <td> Abteilungen: </td>
+                <td> {{ items[i]["groups"] }} </td>
+                </tr>{% endif %}
+
+                {% if items[i]["broadness"] %}<tr>
+                <td> Breite des Stiftungsfokus: </td>
+                <td> {% for entry in displays[i]["broadness"] %}{{entry}}<br> {% endfor %} </td>
+                </tr>{% endif %}
+
+                {% if items[i]["condDoc"] %}<tr>
+                <td> Bedingungen für Ärzte: </td>
+                <td> {{ items[i]["condDoc"] }} </td>
+                </tr>{% endif %}
+
+                {% if items[i]["condSci"] %}<tr>
+                <td> Bedingungen für Wissenschaftler: </td>
+                <td> {{ items[i]["condSci"] }} </td>
+                </tr>{% endif %}
+
+                {% if items[i]["condElse"] %}<tr>
+                <td> Weitere Bedingungen: </td>
+                <td> {{ items[i]["condElse"] }} </td>
+                </tr>{% endif %}
+
+                {% if items[i]["condEText"] %}<tr>
+                <td> Sonstiges: </td>
+                <td> {{ items[i]["condEText"] }} </td>
+                </tr>{% endif %}
+
+                {% if items[i]["condAge"] %}<tr>
+                <td> Maximales Alter: </td>
+                <td> {{ items[i]["condAge"] }} </td>
+                </tr>{% endif %}
+
+                {% if items[i]["frist"] %}<tr>
+                <td> Einreichefrist: </td>
+                <td> {{ items[i]["frist"] }} </td>
+                </tr>{% endif %}
+                
+                {% if items[i]["resContact"] %}<tr>
+                <td> Ergebnis mündl. Kontakt: </td>
+                <td> {{ items[i]["resContact"] }} </td>
+                </tr>{% endif %}
+
+                {% if items[i]["timeContact"] %}<tr>
+                <td> Datum mündl. Kontakt: </td>
+                <td> {{ items[i]["timeContact"] }} </td>
+                </tr>{% endif %}
+                
                 <tr>
-                    <th>Schlüsselwort</th>
-                    {% for item in items %}
-                        <td>{{item["keyword"]}}</td>
-                    {% endfor %}
+                <td> Datum der letzten Änderung: </td>
+                <td> {{ items[i]["lastChange"] }} </td>
                 </tr>
-                <tr>
-                    <th>Schlagworte</th>
-                    {% for display in displays %}
-                        <td>
-                            {% for i in display["hitword"] %}
-                                {{i}}<br>
-                            {% endfor %}
-                        </td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <th> Art der Förderung </th>
-                    {% for display in displays %}
-                        <td>
-                            {% for i in display["kindofboost"] %}
-                                {{i}}<br>
-                            {% endfor %}
-                        </td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <th> Fördermittel </th>
-                    {% for item in items %}
-                        <td>{{item["sum"]}} {{item["currency"]}}</td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <th> Abteilungen </th>
-                    {% for display in displays %}
-                        <td>
-                            {% for i in display["groups"] %}
-                                {{i}}<br>
-                            {% endfor %}
-                        </td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <th> Breite des Stiftungsfokus </th>
-                    {% for display in displays %}
-                        <td>
-                            {% for i in display["broadness"] %}
-                                {{i}}<br>
-                            {% endfor %}
-                        </td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <th> Bedingungen<br>(für Ärzte) </th>
-                    {% for display in displays %}
-                        <td>
-                            {% for i in display["condDoc"] %}
-                                {{i}}<br>
-                            {% endfor %}
-                        </td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <th> Bedingungen<br>(für Wissenschaftler) </th>
-                    {% for display in displays %}
-                        <td>
-                            {% for i in display["condSci"] %}
-                                {{i}}<br>
-                            {% endfor %}
-                        </td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <th> Weitere Bedingungen </th>
-                    {% for display in displays %}
-                        <td>
-                            {% for i in display["condElse"] %}
-                                {{i}}<br>
-                            {% endfor %}
-                        </td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <th> Sonstiges </th>
-                    {% for display in displays %}
-                        <td>
-                            {% for i in display["condEText"] %}
-                                {{i}}<br>
-                            {% endfor %}
-                        </td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <th> Maximales Alter </th>
-                    {% for item in items %}
-                        <td>{{item["condAge"]}}</td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <th> Einreichefrist </th>
-                    {% for display in displays %}
-                        <td>
-                            {% for i in display["frist"] %}
-                                {{i}}<br>
-                            {% endfor %}
-                        </td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <th> Letzte Änderung </th>
-                    {% for item in items %}
-                        <td>{{item["lastChange"]}}</td>
-                    {% endfor %}
-                </tr>
+
             </tbody>
-        </table>
+        </table></div><br><br>
+        {% endfor %}
         </div>
     </section>
 

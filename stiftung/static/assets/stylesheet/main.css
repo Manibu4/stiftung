@@ -117,7 +117,7 @@ body {
 .container,
 .grid {
   margin: 0 auto;
-  width: 960px;
+  width: 80%;
 }
 .container {
   padding-left: 30px;
@@ -287,16 +287,12 @@ p a {
     border-color: 5px solid black;
 }*/
 
-th,
+/*th,
 .res td {
   padding: 10px 15px;
   text-align: left;
 }
 
-.res thead {
-  background: #243a42;;
-  color: #fff;
-}
 .res tbody tr:nth-child(even) {
   background: #8cc0b2;
 }
@@ -307,6 +303,25 @@ th,
 
 td {
   padding: 1px;
+}*/
+
+.card table {
+  width: 100%;
+}
+
+.res thead {
+  background: #add2c8; 
+}
+
+th,
+.res td {
+  padding: 7px 5px 7px 15px;
+  text-align: left;
+  /* white-space: nowrap; */
+}
+
+.machez {
+  width: 300px;
 }
 
 /*.res td {
@@ -434,4 +449,18 @@ input[type="date"],
 .btn:hover,
 .super_btn:hover {
   background: #94b8ae;
+}
+
+.card {
+  background: #fff;
+  border-radius: 2px;
+  display: inline-block;
+  padding: 5px 10px 5px 5px;
+  width: 100%;
+  box-shadow: 0 1px 3px 1px rgba(0,0,0,0.12), 0 1px 2px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.card:hover {
+  box-shadow: 0 14px 28px 5px rgba(0,0,0,0.25), 0 10px 10px 5px rgba(0,0,0,0.22);
 }

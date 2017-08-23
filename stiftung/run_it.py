@@ -4,6 +4,7 @@
 
 import datetime
 import sqlite3
+from operator import itemgetter
 from flask import Flask, request, redirect, url_for, render_template
 from stiftung.database import create_connection, new_foundation, \
      handle_checkboxes, edit_foundation, unique_check, make_nice_display, \
@@ -40,9 +41,10 @@ def main():
     #return render_template('index.html')
     #query ganzi db (limit 20)
     conn, cursor = init_db()
-    conn.row_factory = sqlite3.Row
     cursor = conn.execute('SELECT ID, foundationname FROM foundations')
     items = cursor.fetchall()
+    items = sorted(items, key=itemgetter(1))
+
     return render_template('index.html', items=items)
 
 
@@ -191,4 +193,4 @@ def do_search():
         items.append(get_ind[0])
 
     displays = make_nice_display(items)
-    return render_template('results.html', items=items, displays=displays)
+    return render_template('results.html', items=items, displays=displays, n_res=len(indices))

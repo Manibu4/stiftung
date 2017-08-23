@@ -41,7 +41,7 @@ def handle_checkboxes(box_values):
     box_joint_vals = ''
     if len(box_values) > 1:
         for i in range(0, len(box_values)-1):
-            box_joint_vals = box_joint_vals + ''.join(box_values[i])+';'
+            box_joint_vals = box_joint_vals + ''.join(box_values[i]) + ' / '
 
         box_joint_vals = box_joint_vals + ''.join(box_values[-1])
     else:
@@ -71,26 +71,27 @@ def make_nice_display(text_in):
     if text_in:
         for i in range(0, len(text_in)):
             cont = {}
-            cont["kindofboost"] = text_in[i]["kindofboost"].split(";")
-            cont["hitword"] = text_in[i]["hitword"].split(";")
-            cont["groups"] = text_in[i]["groups"].split(";")
-            cont["broadness"] = text_in[i]["broadness"].split(";")
-            cont["condDoc"] = text_in[i]["condDoc"].split(";")
-            cont["condSci"] = text_in[i]["condSci"].split(";")
-            cont["condElse"] = text_in[i]["condElse"].split(";")
-            if text_in[i]["deadline"]:
-                cont["frist"] = text_in[i]["deadline"].split(";")
-            elif text_in[i]["pending"]:
-                cont["frist"] = text_in[i]["pending"].split(";")
-            elif text_in[i]["noInfo"]:
-                cont["frist"] = text_in[i]["noInfo"].split(";")
-            else:
-                cont["frist"] = ''
+            # unklar ob das do no witer nötig isch...
+            # cont["kindofboost"] = text_in[i]["kindofboost"].split("/")
+            # cont["hitword"] = text_in[i]["hitword"].split("/")
+            # cont["groups"] = text_in[i]["groups"].split("/")
+            # cont["condDoc"] = text_in[i]["condDoc"].split("/")
+            # cont["condSci"] = text_in[i]["condSci"].split("/")
+            # cont["condElse"] = text_in[i]["condElse"].split("/")
+            # if text_in[i]["deadline"]:
+                # cont["frist"] = text_in[i]["deadline"].split("/")
+            # elif text_in[i]["pending"]:
+                # cont["frist"] = text_in[i]["pending"].split("/")
+            # elif text_in[i]["noInfo"]:
+                # cont["frist"] = text_in[i]["noInfo"].split("/")
+            # else:
+                # cont["frist"] = ''
 
-            if text_in[i]["condEText"]:
-                cont["condEText"] = text_in[i]["condEText"].split(";")
-            else:
-                cont["condEText"] = ''
+            # if text_in[i]["condEText"]:
+                # cont["condEText"] = text_in[i]["condEText"].split("/")
+            # else:
+                # cont["condEText"] = ''
+            cont["broadness"] = text_in[i]["broadness"].split(" / ")
             display.append(cont)
 
     return display
@@ -108,21 +109,21 @@ def find_entries(flist, array_search):
         The condition on the maximal age is, of course, considered accordingly.
     """
     array = []
-    array0 = array_search[0].split(";")
-    array1 = array_search[1].split(";")
-    array2 = array_search[2].split(";")
-    array3 = array_search[3].split(";")
-    array4 = array_search[4].split(";")
-    array5 = array_search[5].split(";")
+    array0 = array_search[0].split(" / ")
+    array1 = array_search[1].split(" / ")
+    array2 = array_search[2].split(" / ")
+    array3 = array_search[3].split(" / ")
+    array4 = array_search[4].split(" / ")
+    array5 = array_search[5].split(" / ")
     array6 = array_search[6]
 
     for one_item in flist:
-        zero = one_item["kindofboost"].split(";")
-        one = one_item["groups"].split(";")
-        two = one_item["broadness"].split(";")
-        three = one_item["condDoc"].split(";")
-        four = one_item["condSci"].split(";")
-        five = one_item["condElse"].split(";")
+        zero = one_item["kindofboost"].split(" / ")
+        one = one_item["groups"].split(" / ")
+        two = one_item["broadness"].split(" / ")
+        three = one_item["condDoc"].split(" / ")
+        four = one_item["condSci"].split(" / ")
+        five = one_item["condElse"].split(" / ")
         six = one_item["condAge"]
 
         if ((array0 == [''] or zero == [''] or (str('Keine Angabe') in zero)

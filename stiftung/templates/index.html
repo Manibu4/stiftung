@@ -25,20 +25,35 @@
         </div>
     </section>
     <section class="row">
-        <div class="grid">
+        <div class="grid" id="print_content">
             <h2>Liste der Stiftungen in der Datenbank</h2>
-        <table width=100%>
+        <table width=50%>
             {% for item in items %}
                 <tr>
-                    <td>{{item["foundationname"]}}</td>
-                    <td style="text-align: right"><a class="btn" href="/formular?id={{item['ID']}}">Eintrag bearbeiten</a>
+                    <td>{{item[1]}}</td>
+                    <td style="text-align: right"><a class="btn" href="/formular?id={{item[0]}}">Eintrag bearbeiten</a>
                     </td>
                 </tr>
             {% endfor %}
         </table>
         </div>
+        <br>
+        <div class="grid">
+            <input class="btn" type="button" onclick="printDiv('print_content')" value="Liste drucken"/>
+        </div>
     </section>
 
     <footer class="primary-footer container group">Homepage designed by Manibu</footer>
+
+<script type="text/javascript">
+function printDiv(divName) {
+    var printContents = document.getElementById(divName).innerHTML;
+    w = window.open();
+    w.document.write(printContents);
+    w.print();
+    w.close();
+}
+</script>
+
 </body>
 </html>
