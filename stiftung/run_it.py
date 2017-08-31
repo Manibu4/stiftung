@@ -5,15 +5,20 @@
 import datetime
 import sqlite3
 from operator import itemgetter
-from flask import Flask, request, redirect, url_for, render_template
+from flask import Flask, request, redirect, url_for, render_template, session
 from stiftung.database import create_connection, new_foundation, \
      handle_checkboxes, edit_foundation, unique_check, make_nice_display, \
-     find_entries
+     find_entries, sort_by_date
 
-blu = Flask(__name__)
+# blu = Flask(__name__)
+blu = Flask(__name__, instance_relative_config=True)
+blu.config.from_object('stiftung.default_config')
+blu.config.from_pyfile('config.cfg', silent=True)
 blu.debug = True
 path_to_db = 'stiftung/foundations.db'
 
+UNAME = blu.config['USER_NAME']
+UPASSWORD = blu.config['USER_PASSWORD']
 
 def get_db():
     """ Create a connection to the sqlite db and return it """
@@ -46,6 +51,29 @@ def main():
     items = sorted(items, key=itemgetter(1))
 
     return render_template('index.html', items=items)
+
+
+@blu.route('/login')
+def do_login():
+    if session.get('logged_in') == True:
+        return redirect(url_for('formular_in', id=request.args.get('id')))
+    else:
+        return render_template('login.html', msg={})
+
+
+@blu.route('/verify', methods=['POST'])
+def verify():
+    if request.form['password'] == UPASSWORD and request.form['username'] == UNAME:
+        session['logged_in'] = True
+        return redirect(url_for('main'))
+    else:
+        return render_template('login.html', msg='Ungültige Eingabe')
+
+
+@blu.route('/logout')
+def logout():
+    session['logged_in'] = False
+    return main()
 
 
 @blu.route('/formular')
@@ -97,7 +125,7 @@ def formular_add():
     deadline2 = request.form["deadline2"]
     deadline = ''
     if deadline1 and deadline2:
-        deadline = ''.join(deadline1) + ';' + ''.join(deadline2)
+        deadline = ''.join(deadline1) + ' / ' + ''.join(deadline2)
     elif deadline1:
         deadline = deadline1
     elif deadline2:
@@ -112,6 +140,7 @@ def formular_add():
     cond_e_text = request.form["condEText"]
 
     res_contact = request.form["resContact"]
+    notes = request.form["notes"]
     time_contact = request.form["timeContact"]
     last_change = request.form["lastChange"]
 
@@ -133,7 +162,7 @@ def formular_add():
     array = [name, keyword, adress, phone, mail, website, contact_person, zweck,
              kind_of_boost, money, currency, hitword, groups, broadness, conditions_d,
              conditions_s, conditions_e, condition_age, cond_e_text, deadline, pending,
-             no_info, res_contact, time_contact, last_change]
+             no_info, res_contact, notes, time_contact, last_change]
 
     if mode == 'new':
         cursor.execute("""SELECT foundationname FROM foundations WHERE
@@ -152,13 +181,13 @@ def formular_add():
         return redirect(url_for('main'))
 
 
-@blu.route('/showsearch')
+@blu.route('/search')
 def show_search():
     """ Render the form to search for entries in the db """
     return render_template('formular_search.html')
 
 
-@blu.route('/dosearch', methods=['POST'])
+@blu.route('/results', methods=['POST'])
 def do_search():
     """ Take input from the search form
         Check for matching entries in the db (find_entries)
@@ -188,9 +217,26 @@ def do_search():
     indices = find_entries(items, search_array)
     items = []
     for i in range(0, len(indices)):
-        cursor = conn.execute('SELECT * FROM foundations WHERE id=?', (indices[i],))
+        cursor = conn.execute("""SELECT id, foundationname,
+            deadline, pending, noInfo FROM foundations WHERE id LIKE ?""", (indices[i],))
         get_ind = cursor.fetchall()
         items.append(get_ind[0])
 
-    displays = make_nice_display(items)
-    return render_template('results.html', items=items, displays=displays, n_res=len(indices))
+
+    # items = sort_by_date(items)
+    # for item in items:
+    #     print(item['id'])
+    return render_template('results.html', items=items, n_res=len(indices))
+
+@blu.route('/show_card')
+def show_card():
+    """ Show the detailed information for one foundation
+    """
+
+    get_id = request.args.get('id')
+    conn = get_db()
+    conn.row_factory = sqlite3.Row
+    cursor = conn.execute('SELECT * FROM foundations where id=?', (get_id,) )
+    item = cursor.fetchone()
+    display = make_nice_display([item])
+    return render_template('single_result.html', item=item, display=display[0])

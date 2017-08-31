@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<head>
+  <title>Stiftungsdatenbank</title>
+  <link rel="stylesheet" href="{{url_for('static', filename='assets/stylesheet/main.css') }}">
+  <link rel="stylesheet" href="https://unpkg.com/tachyons@4.7.0/css/tachyons.min.css"/>
+</head>
+
+<body>
+    <header class="primary-header container group">
+        <h1 class="logo" ><a href="/">Universitätsspital Basel<br>Stiftungsdatenbank</a></h1>
+    </header>
+    <section class="row">
+        <div class="grid">
+        <form action="/verify" method="POST">
+            <h3>Um Einträge zu bearbeiten und neue Stiftungen zu erfassen bitte anmelden</h3>
+            {% if msg %} <h3 style="color:red">{{msg}}<br><br> </h3>{% endif %}
+			<input type="text" class="login_db" value="" placeholder="Name" name="username"><br>
+			<input type="password" class="login_db" value="" placeholder="Passwort" name="password"><br>
+            <input type="submit" value="Log in" class="btn">
+			<br>
+        </form>
+        </div>
+    </section>
+    <footer class="primary-footer container group">Homepage designed by Manibu</footer>
+</body>
+</html>

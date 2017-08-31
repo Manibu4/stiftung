@@ -2,7 +2,7 @@
 <html lang="en">
 <meta charset="utf-8">
 <head>
-  <title>Formular</title>
+  <title>Stiftung erfassen/bearbeiten</title>
   <link rel="stylesheet" href="{{url_for('static', filename='assets/stylesheet/main.css') }}">
 </head>
 
@@ -183,18 +183,18 @@
                     <li><input type="number" name="conditionAge" id="age" min="18" value="{{blubber['condAge']}}">
                         <label for="age">Max. Alter</label>
                     </li>
-                    <li><input class="large-input" type="text" name="condEText" placeholder="Sonstiges"/
-                        value="{{blubber['condEText']}}">
+                    <li><label><br>Sonstiges
+                        <textarea class="large-input" type="textarea" name="condEText">{{blubber['condEText']}}</textarea></label>
                     </li>
                 </ul>
             </label>
             <label class="foundation-nebenand foundation-checkbox">Einreichefrist<br><br>
                 <label for="deadline1">Datum 1:</label>
-                <input type="date" name="deadline1" id="deadline1" pattern="[0-9]{2}.[0-9]{2}" placeholder="dd.mm"/
-                  {% if blubber['deadline'] %}value="{{blubber['deadline'][0:5]}}"{% endif %}>
+                <input type="date" name="deadline1" id="deadline1" pattern="[0-9]{2}.[0-9]{2}." placeholder="dd.mm."/
+                  {% if blubber['deadline'] %}value="{{blubber['deadline'][0:6]}}"{% endif %}>
                 <label for="deadline2">Datum 2:</label>
-                <input type="date" name="deadline2" id="deadline2" pattern="[0-9]{2}.[0-9]{2}" placeholder="dd.mm"/
-                  {% if (blubber['deadline']|length==11) %}value="{{blubber['deadline'][6:11]}}"{% endif %}><br>
+                <input type="date" name="deadline2" id="deadline2" pattern="[0-9]{2}.[0-9]{2}." placeholder="dd.mm."/
+                  {% if (blubber['deadline']|length==11) %}value="{{blubber['deadline'][7:13]}}"{% endif %}><br>
                 <label for="pending">Laufend</label>
                 <input type="checkbox" name="pending" value="Laufend" id="pending"/
                     {% if blubber['pending'] %}checked{% else %}{% endif %}>
@@ -207,9 +207,14 @@
                  max="17-21-06" placeholder="dd.mm.yy" value="{{blubber['timeContact']}}"></label><br>
             <label>Ergebnis
                 <textarea class="large-input" type="textarea" name="resContact" id="resContact">{{blubber['resContact']}}</textarea></label>
+            <label>Notizen
+                <textarea class="large-input" type="textarea" name="notes" id="notes">{{blubber['notes']}}</textarea></label>
             <label>Datum der letzten Änderung
                     <input type="date" name="lastChange" value="{{today}}"></label><br>
         <input class="super_btn btn" style="color: #fff" name="submit" value="Eintrag speichern" type="submit">
+        {% if mode=='edit' %}
+            <input class="super_btn btn btn_left" style="color: #fff" name="submit" value="Eintrag löschen" type="submit">
+        {% endif %}
         </form>
         </fieldset>
         </div>

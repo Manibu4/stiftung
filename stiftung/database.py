@@ -1,6 +1,7 @@
 """ This file contains all helper functions for the interaction with the db """
 
 import sqlite3
+import datetime
 
 def create_connection(db_file):
     """ create a database connection to a SQLite database """
@@ -13,7 +14,7 @@ def new_foundation(conn, values):
     cursor = conn.cursor()
 
     cursor.execute("""INSERT INTO foundations VALUES
-    (NULL, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?)""", values)
+    (NULL, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?, ?)""", values)
     conn.commit()
 
 
@@ -24,12 +25,13 @@ def edit_foundation(conn, values):
       address=?, pnumber=?, mail=?, website=?, contactperson=?, purpose=?,
       kindofboost=?, sum=?, currency=?, hitword=?, groups=?, broadness=?,
       condDoc=?, condSci=?, condElse=?, condAge=?, condEText=?, deadline=?,
-      pending=?, noInfo=?, resContact=?, timeContact=?, lastChange=? WHERE id=?""", \
+      pending=?, noInfo=?, resContact=?, notes=?, timeContact=?, lastChange=?
+      WHERE id=?""", \
       (values[0], values[1], values[2], values[3], values[4], values[5], \
        values[6], values[7], values[8], values[9], values[10], values[11], \
        values[12], values[13], values[14], values[15], values[16], values[17], \
        values[18], values[19], values[20], values[21], values[22], values[23], \
-       values[24], values[25],))
+       values[24], values[25], values[26]))
     conn.commit()
 
 
@@ -78,19 +80,20 @@ def make_nice_display(text_in):
             # cont["condDoc"] = text_in[i]["condDoc"].split("/")
             # cont["condSci"] = text_in[i]["condSci"].split("/")
             # cont["condElse"] = text_in[i]["condElse"].split("/")
-            # if text_in[i]["deadline"]:
-                # cont["frist"] = text_in[i]["deadline"].split("/")
-            # elif text_in[i]["pending"]:
-                # cont["frist"] = text_in[i]["pending"].split("/")
-            # elif text_in[i]["noInfo"]:
-                # cont["frist"] = text_in[i]["noInfo"].split("/")
-            # else:
-                # cont["frist"] = ''
-
             # if text_in[i]["condEText"]:
                 # cont["condEText"] = text_in[i]["condEText"].split("/")
             # else:
                 # cont["condEText"] = ''
+            
+            if text_in[i]["deadline"]:
+                cont["frist"] = text_in[i]["deadline"]
+            elif text_in[i]["pending"]:
+                cont["frist"] = text_in[i]["pending"]
+            elif text_in[i]["noInfo"]:
+                cont["frist"] = text_in[i]["noInfo"]
+            else:
+                cont["frist"] = ''
+
             cont["broadness"] = text_in[i]["broadness"].split(" / ")
             display.append(cont)
 
@@ -137,3 +140,38 @@ def find_entries(flist, array_search):
             array.append(int(one_item["id"]))
 
     return array
+
+
+def sort_by_date(items):
+    """ Sort the results.
+        First part: by date
+        Second part: no information
+        Third part: Pending 
+    """
+    now = datetime.datetime.now()
+    today = now.strftime("%d.%m")
+    zw_1 = []
+    zw_2 = []
+    zw_3 = []
+    for item in items:
+        if item['pending']:
+            zw_3.append(item)
+        elif item['deadline']:
+            zw_1.append(item)
+        else:
+            zw_2.append(item)
+    items = zw_2 + zw_3
+    
+    # dateVec = []
+    for item in zw_1:
+        dates = item['deadline'].split(" / ")
+        for date in dates:
+            print(datetime.datetime.strptime(str(date), "%d.%m").strftime("%d.%m")-today)
+            
+            # blii = datetime.datetime.strftime(datetime.date(date), "%d.%m")-today
+            # dateVec.append(blii)
+    # for item in items:
+    #     print(item['id'])
+
+    # print(dateVec)
+    return items

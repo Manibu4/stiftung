@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<head>
+  <title>Stiftungsdetails</title>
+  <link rel="stylesheet" href="{{url_for('static', filename='assets/stylesheet/main.css') }}">
+  <link rel="stylesheet" href="https://unpkg.com/tachyons@4.7.0/css/tachyons.min.css"/>
+</head>
+
+<body>
+    <header class="primary-header container group">
+        <h1 class="logo" ><a href="/">Universitätsspital Basel<br>Stiftungsdatenbank</a></h1>
+    </header>
+    <!---->
+    <section class="row">
+        <div class="grid">
+        <h2>Stiftungsdetails</h2><br>
+        <div class="card" id="print_content">
+        <table class="res f5">
+            <thead> <tr>
+                <td colspan="2" class="fw4"> {{ item["foundationname"] }} </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td class="machez"> Kontakt: </td>
+                <td>{{ item["contactperson"] }}<br>
+                    {{ item["address"] }}<br>
+                    {{ item["pnumber"] }}<br>
+                    {{ item["mail"] }}<br>
+                    <a href="{{item["website"]}}" target="_blank">{{ item["website"] }}</a>
+                </td> 
+                </tr> 
+                
+                {% if item["purpose"] %}<tr>
+                <td> Zweck: </td>
+                <td> {{ item["purpose"] }} </td>
+                </tr>{% endif %}
+
+                {% if item["keyword"] %}<tr>
+                <td> Schlüsselwort: </td>
+                <td> {{ item["keyword"] }} </td>
+                </tr>{% endif %}
+
+                {% if item["hitword"] %}<tr>
+                <td> Schlagworte: </td>
+                <td> {{ item["hitword"] }}</td>
+                </tr>{% endif %}
+                
+                {% if item["kindofboost"] %}<tr>
+                <td> Art der Förderung: </td>
+                <td> {{ item["kindofboost"] }} </td>
+                </tr>{% endif %}
+
+                {% if item["sum"] %}<tr>
+                <td> Fördermittel: </td>
+                <td> {{ item["sum"] }} {{ item["currency"] }} </td>
+                </tr>{% endif %}
+
+                {% if item["groups"] %}<tr>
+                <td> Abteilungen: </td>
+                <td> {{ item["groups"] }} </td>
+                </tr>{% endif %}
+
+                {% if item["broadness"] %}<tr>
+                <td> Breite des Stiftungsfokus: </td>
+                <td> {% for entry in display["broadness"] %}{{entry}}<br> {% endfor %} </td>
+                </tr>{% endif %}
+
+                {% if item["condDoc"] %}<tr>
+                <td> Bedingungen für Ärzte: </td>
+                <td> {{ item["condDoc"] }} </td>
+                </tr>{% endif %}
+
+                {% if item["condSci"] %}<tr>
+                <td> Bedingungen für Wissenschaftler: </td>
+                <td> {{ item["condSci"] }} </td>
+                </tr>{% endif %}
+
+                {% if item["condElse"] %}<tr>
+                <td> Weitere Bedingungen: </td>
+                <td> {{ item["condElse"] }} </td>
+                </tr>{% endif %}
+
+                {% if item["condEText"] %}<tr>
+                <td> Sonstiges: </td>
+                <td> {{ item["condEText"] }} </td>
+                </tr>{% endif %}
+
+                {% if item["condAge"] %}<tr>
+                <td> Maximales Alter: </td>
+                <td> {{ item["condAge"] }} </td>
+                </tr>{% endif %}
+
+                {% if display["frist"] %}<tr>
+                <td> Einreichefrist: </td>
+                <td> {{ display["frist"] }} </td>
+                </tr>{% endif %}
+                
+                {% if item["resContact"] %}<tr>
+                <td> Ergebnis mündl. Kontakt: </td>
+                <td> {{ item["resContact"] }} </td>
+                </tr>{% endif %}
+
+                {% if item["timeContact"] %}<tr>
+                <td> Datum mündl. Kontakt: </td>
+                <td> {{ item["timeContact"] }} </td>
+                </tr>{% endif %}
+
+                {% if item["notes"] %}<tr>
+                <td> Notizen: </td>
+                <td> {{ item["notes"] }} </td>
+                </tr>{% endif %}
+                
+                <tr>
+                <td> Datum der letzten Änderung: </td>
+                <td> {{ item["lastChange"] }} </td>
+                </tr>
+
+            </tbody>
+        </table></div><br><br>
+        </div>
+        <div class="grid">
+            <input class="btn" type="button" onclick="printDiv('print_content')" value="Karte drucken"/>
+        </div>
+    </section>
+    <script type=text/javascript src="{{url_for('static', filename='js/scripts.js') }}"></script>
+    <footer class="primary-footer container group">Homepage designed by Manibu</footer>
+</body>

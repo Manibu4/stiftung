@@ -2,8 +2,9 @@
 <html lang="en">
 <meta charset="utf-8">
 <head>
-  <title>Search</title>
+  <title>Stiftungsdatenbank</title>
   <link rel="stylesheet" href="{{url_for('static', filename='assets/stylesheet/main.css') }}">
+  <link rel="stylesheet" href="https://unpkg.com/tachyons@4.7.0/css/tachyons.min.css"/>
 </head>
 
 <body>
@@ -15,10 +16,10 @@
         <table>
         <tr>
             <td style="padding-right: 10px">
-                <a class="btn super_btn" href="/showsearch">Datenbank durchsuchen</a>
+                <a class="btn super_btn" href="/search">Datenbank durchsuchen</a>
             </td>
             <td>
-                <a class="btn super_btn" href="/formular" method='get'>Neue Stiftung erfassen</a>
+                <a class="btn super_btn" href="/login" method='post'>Neue Stiftung erfassen</a>
             </td>
         </tr>
         </table>
@@ -30,8 +31,8 @@
         <table width=50%>
             {% for item in items %}
                 <tr>
-                    <td>{{item[1]}}</td>
-                    <td style="text-align: right"><a class="btn" href="/formular?id={{item[0]}}">Eintrag bearbeiten</a>
+                    <td class="fw4"><a href="/show_card?id={{item[0]}}" target="_blank">{{item[1]}}</a></td>
+                    <td style="text-align: right"><a class="btn" href="/login?id={{item[0]}}">Eintrag bearbeiten</a>
                     </td>
                 </tr>
             {% endfor %}
@@ -44,16 +45,6 @@
     </section>
 
     <footer class="primary-footer container group">Homepage designed by Manibu</footer>
-
-<script type="text/javascript">
-function printDiv(divName) {
-    var printContents = document.getElementById(divName).innerHTML;
-    w = window.open();
-    w.document.write(printContents);
-    w.print();
-    w.close();
-}
-</script>
-
+<script type=text/javascript src="{{url_for('static', filename='js/scripts.js') }}"></script>
 </body>
 </html>

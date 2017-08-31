@@ -23,6 +23,7 @@ create table if not exists foundations (
     pending text,
     noInfo text,
     resContact text,
+    notes text,
     timeContact text,
     lastChange text
 );

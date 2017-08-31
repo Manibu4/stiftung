@@ -2,7 +2,7 @@
 <html lang="en">
 <meta charset="utf-8">
 <head>
-  <title>Search database</title>
+  <title>Suche</title>
   <link rel="stylesheet" href="{{url_for('static', filename='assets/stylesheet/main.css') }}">
 </head>
 
@@ -15,7 +15,7 @@
         <div class="container">
         <fieldset class="foundation-group">
         <h1>Suche nach passenden Stiftungen</h1>
-        <form action="/dosearch" method="post">
+        <form action="/results" method="post">
             <label class="foundation-checkbox">Art der Förderung
             <ul>
                 <li><input type="checkbox" name="kindOfBoost" value="Projektförderung" id="projekt">

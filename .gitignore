@@ -98,5 +98,8 @@ ENV/
 # mypy
 .mypy_cache/
 
+# instance configuration
+instance
+
 .DS_Store
-stiftung/foundations.db
+*.db

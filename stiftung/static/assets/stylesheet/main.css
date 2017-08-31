@@ -166,7 +166,7 @@ body {
 */
 
 h1, h2, h3, h4 {
-  color: #add2c8; /*Farb vo Titel*/
+  color: #98c1bd; /*Farb vo Titel*/
 }
 h1, h3, h4, h5, p {
   margin-bottom: 22px;
@@ -220,13 +220,14 @@ em {
 */
 
 a {
-  color: #eafaf3;
+  color: #000;
   text-decoration: none;
 }
-/*a:hover {
-  color: #a9b2b9;
+a:hover {
+  color: #98c1bd;
 }
-p a {
+
+/* a {
   border-bottom: 1px solid #dfe2e5;
 }*/
 .primary-header a,
@@ -308,6 +309,10 @@ td {
 .card table {
   width: 100%;
 }
+
+/* table {
+  width: 60%;
+} */
 
 .res thead {
   background: #add2c8; 
@@ -448,7 +453,8 @@ input[type="date"],
 
 .btn:hover,
 .super_btn:hover {
-  background: #94b8ae;
+  color: #fff;
+  background: #98c1bd;
 }
 
 .card {
@@ -463,4 +469,11 @@ input[type="date"],
 
 .card:hover {
   box-shadow: 0 14px 28px 5px rgba(0,0,0,0.25), 0 10px 10px 5px rgba(0,0,0,0.22);
+}
+
+.login_db {
+  border: 1px solid #c6c9cc;
+  border-radius: 5px;
+  padding:5px;
+  margin-bottom: 5px;
 }
