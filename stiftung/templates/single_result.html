@@ -41,11 +41,6 @@
                 <td> Schlüsselwort: </td>
                 <td> {{ item["keyword"] }} </td>
                 </tr>{% endif %}
-
-                {% if item["hitword"] %}<tr>
-                <td> Schlagworte: </td>
-                <td> {{ item["hitword"] }}</td>
-                </tr>{% endif %}
                 
                 {% if item["kindofboost"] %}<tr>
                 <td> Art der Förderung: </td>
@@ -57,39 +52,19 @@
                 <td> {{ item["sum"] }} {{ item["currency"] }} </td>
                 </tr>{% endif %}
 
-                {% if item["groups"] %}<tr>
-                <td> Abteilungen: </td>
-                <td> {{ item["groups"] }} </td>
-                </tr>{% endif %}
-
                 {% if item["broadness"] %}<tr>
                 <td> Breite des Stiftungsfokus: </td>
                 <td> {% for entry in display["broadness"] %}{{entry}}<br> {% endfor %} </td>
                 </tr>{% endif %}
 
-                {% if item["condDoc"] %}<tr>
-                <td> Bedingungen für Ärzte: </td>
-                <td> {{ item["condDoc"] }} </td>
-                </tr>{% endif %}
-
-                {% if item["condSci"] %}<tr>
-                <td> Bedingungen für Wissenschaftler: </td>
-                <td> {{ item["condSci"] }} </td>
+                {% if item["acadDegree"] %}<tr>
+                <td> Akademischer Gred: </td>
+                <td> {{ item["acadDegree"] }} </td>
                 </tr>{% endif %}
 
                 {% if item["condElse"] %}<tr>
                 <td> Weitere Bedingungen: </td>
                 <td> {{ item["condElse"] }} </td>
-                </tr>{% endif %}
-
-                {% if item["condEText"] %}<tr>
-                <td> Sonstiges: </td>
-                <td> {{ item["condEText"] }} </td>
-                </tr>{% endif %}
-
-                {% if item["condAge"] %}<tr>
-                <td> Maximales Alter: </td>
-                <td> {{ item["condAge"] }} </td>
                 </tr>{% endif %}
 
                 {% if display["frist"] %}<tr>

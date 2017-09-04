@@ -65,47 +65,6 @@
                         {% if 'EUR' in blubber['currency'] %}selected{% else %}{% endif %}>EUR</option>
                 </select>
             </label><br>
-            <label class="foundation-checkbox">Schlagworte
-                <ul>
-                    <li><input type="checkbox" name="hitword" value="Herz" id="Herz"/
-                        {% if 'Herz' in blubber['hitword'] %}checked{% else %}{% endif %}>
-                        <label for="Herz">Herz</label></li>
-                    <li><input type="checkbox" name="hitword" value="Alter" id="Alter"/
-                        {% if 'Alter' in blubber['hitword'] %}checked{% else %}{% endif %}>
-                        <label for="Alter">Alter</label></li>
-                    <li><input type="checkbox" name="hitword" value="Soziales" id="Soziales"/
-                        {% if 'Soziales' in blubber['hitword'] %}checked{% else %}{% endif %}>
-                        <label for="">Soziales</label></li>
-                </ul>
-            </label>
-            <label class="foundation-checkbox">Abteilungen
-                <ul>
-                    <li><input type="checkbox" name="groups" value="AOD" id="AOD"/
-                        {% if 'AOD' in blubber['groups'] %}checked{% else %}{% endif %}>
-                        <label for="AOD">AOD</label></li>
-                    <li><input type="checkbox" name="groups" value="CTD" id="CTD"/
-                        {% if 'CTD' in blubber['groups'] %}checked{% else %}{% endif %}>
-                        <label for="CTD">CTD</label></li>
-                    <li><input type="checkbox" name="groups" value="MSK" id="MSK"/
-                        {% if 'MSK' in blubber['groups'] %}checked{% else %}{% endif %}>
-                        <label for="MSK">MSK</label></li>
-                    <li><input type="checkbox" name="groups" value="DINR" id="DINR"/
-                        {% if 'DINR' in blubber['groups'] %}checked{% else %}{% endif %}>
-                        <label for="DINR">DINR</label></li>
-                    <li><input type="checkbox" name="groups" value="IR" id="IR"/
-                        {% if 'IR' in blubber['groups'] %}checked{% else %}{% endif %}>
-                        <label for="IR">IR</label></li>
-                    <li><input type="checkbox" name="groups" value="RPh" id="RPh"/
-                        {% if 'RPh' in blubber['groups'] %}checked{% else %}{% endif %}>
-                        <label for="RPh">RPh</label></li>
-                    <li><input type="checkbox" name="groups" value="RCH" id="RCH"/
-                        {% if 'RCH' in blubber['groups'] %}checked{% else %}{% endif %}>
-                        <label for="RCH">RCH</label></li>
-                    <li><input type="checkbox" name="groups" value="NUK" id="NUK"/
-                        {% if 'NUK' in blubber['groups'] %}checked{% else %}{% endif %}>
-                        <label for="NUK">NUK</label></li>
-                </ul>
-            </label>
             <label class="foundation-checkbox">Breite des Stiftungsfokus
                 <ul>
                     <li><input type="checkbox" name="broadness" value="Enger Fokus (radiologisch-klinisch, MR-Physik etc.)" id="eng"/
@@ -122,71 +81,40 @@
                     </li>
                 </ul>
             </label>
-            <label class="foundation-checkbox">Bedingungen &Aumlrzte
+            <label class="foundation-checkbox">Akademischer Grad
                 <ul>
-                    <li><input type="checkbox" name="conditionsD" value="Prof" id="profmed"/
-                        {% if 'Prof' in blubber['condDoc'] %}checked{% else %}{% endif %}>
-                        <label for="profmed">Prof.</label>
+                    <li><input type="checkbox" name="acadDegree" value="Prof" id="prof"/
+                        {% if 'Prof' in blubber['acadDegree'] %}checked{% else %}{% endif %}>
+                        <label for="prof">Prof.</label>
                     </li>
-                    <li><input type="checkbox" name="conditionsD" value="PD" id="pdMed"/
-                        {% if 'PD' in blubber['condDoc'] %}checked{% else %}{% endif %}>
-                        <label for="pdMed">PD</label>
+                    <li><input type="checkbox" name="acadDegree" value="PD" id="pd"/
+                        {% if 'PD' in blubber['acadDegree'] %}checked{% else %}{% endif %}>
+                        <label for="pd">PD</label>
                     </li>
-                    <li><input type="checkbox" name="conditionsD" value="PhD" id="phdMed"/
-                        {% if 'PhD' in blubber['condDoc'] %}checked{% else %}{% endif %}>
-                        <label for="phdMed">PhD</label>
+                    <li><input type="checkbox" name="acadDegree" value="PhD" id="phd"/
+                        {% if 'PhD' in blubber['acadDegree'] %}checked{% else %}{% endif %}>
+                        <label for="phd">PhD</label>
                     </li>
-                    <li><input type="checkbox" name="conditionsD" value="MD" id="md"/
-                        {% if 'MD' in blubber['condDoc'] %}checked{% else %}{% endif %}>
+                    <li><input type="checkbox" name="acadDegree" value="Doktorand" id="doktorand"/
+                        {% if 'Doktorand' in blubber['acadDegree'] %}checked{% else %}{% endif %}>
+                        <label for="doktorand">Doktorand</label>
+                    </li>
+                    <li><input type="checkbox" name="acadDegree" value="MD" id="md"/
+                        {% if 'MD' in blubber['acadDegree'] %}checked{% else %}{% endif %}>
                         <label for="md">MD</label>
                     </li>
-                    <li><input type="checkbox" name="conditionsD" value="Cand. med." id="cmed"/
-                        {% if 'Cand' in blubber['condDoc'] %}checked{% else %}{% endif %}>
+                    <li><input type="checkbox" name="acadDegree" value="Master" id="master"/
+                        {% if 'Master' in blubber['acadDegree'] %}checked{% else %}{% endif %}>
+                        <label for="master">Master</label>
+                    </li>
+                    <li><input type="checkbox" name="acadDegree" value="Cand. med." id="cmed"/
+                        {% if 'Cand' in blubber['acadDegree'] %}checked{% else %}{% endif %}>
                         <label for="cmed">Cand. med.</label>
                     </li>
                 </ul>
             </label>
-            <label class="foundation-checkbox">Bedingungen Wissenschaftler
-                <ul>
-                    <li><input type="checkbox" name="conditionsS" value="Prof" id="prof"/
-                        {% if 'Prof' in blubber['condSci'] %}checked{% else %}{% endif %}>
-                        <label for="prof">Prof.</label>
-                    </li>
-                    <li><input type="checkbox" name="conditionsS" value="PhD" id="phd"/
-                        {% if 'PhD' in blubber['condSci'] %}checked{% else %}{% endif %}>
-                        <label for="phd">PhD</label>
-                    </li>
-                    <li><input type="checkbox" name="conditionsS" value="Doktorand" id="doktorand"/
-                        {% if 'Doktorand' in blubber['condSci'] %}checked{% else %}{% endif %}>
-                        <label for="doktorand">Doktorand</label>
-                    </li>
-                    <li><input type="checkbox" name="conditionsS" value="Master" id="master"/
-                        {% if 'Master' in blubber['condSci'] %}checked{% else %}{% endif %}>
-                        <label for="master">Master</label>
-                    </li>
-                </ul>
-            </label>
-            <label class="foundation-checkbox">Andere Bedingungen
-                <ul>
-                    <li><input type="checkbox" name="conditionsE" value="Schweizer" id="ch"/
-                        {% if 'Schweizer' in blubber['condElse'] %}checked{% else %}{% endif %}>
-                        <label for="ch">Schweizer</label></li>
-                    <li><input type="checkbox" name="conditionsE" value="Basler" id="bs"/
-                        {% if 'Basler' in blubber['condElse'] %}checked{% else %}{% endif %}>
-                        <label for="bs">Basler</label></li>
-                    <li><input type="checkbox" name="conditionsE" value="Frauen" id="frauen"/
-                        {% if 'Frauen' in blubber['condElse'] %}checked{% else %}{% endif %}>
-                        <label for="frauen">Frauen</label></li>
-                    <li><input type="checkbox" name="conditionsE" value="EU" id="europunion"/
-                        {% if 'EU' in blubber['condElse'] %}checked{% else %}{% endif %}>
-                        <label for="europunion">EU</label></li>
-                    <li><input type="number" name="conditionAge" id="age" min="18" value="{{blubber['condAge']}}">
-                        <label for="age">Max. Alter</label>
-                    </li>
-                    <li><label><br>Sonstiges
-                        <textarea class="large-input" type="textarea" name="condEText">{{blubber['condEText']}}</textarea></label>
-                    </li>
-                </ul>
+            <label>Weitere Bedingungen
+                <textarea class="large-input" type="textarea" name="condElse">{{blubber['condElse']}}</textarea>
             </label>
             <label class="foundation-nebenand foundation-checkbox">Einreichefrist<br><br>
                 <label for="deadline1">Datum 1:</label>
@@ -194,7 +122,13 @@
                   {% if blubber['deadline'] %}value="{{blubber['deadline'][0:6]}}"{% endif %}>
                 <label for="deadline2">Datum 2:</label>
                 <input type="date" name="deadline2" id="deadline2" pattern="[0-9]{2}.[0-9]{2}." placeholder="dd.mm."/
-                  {% if (blubber['deadline']|length==11) %}value="{{blubber['deadline'][7:13]}}"{% endif %}><br>
+                  {% if (blubber['deadline']|length>10) %}value="{{blubber['deadline'][9:15]}}"{% endif %}><br>
+                <label for="variabel">Ändert Jährlich</label>
+                <input type="checkbox" name="variabel" value="Variabel" id="variabel"/
+                {% if blubber['variabel'] %}checked{% else %}{% endif %}>
+                <label for="fix">Fix</label>
+                <input type="checkbox" name="fix" value="Fix" id="fix"/
+                {% if blubber['fix'] %}checked{% else %}{% endif %}>
                 <label for="pending">Laufend</label>
                 <input type="checkbox" name="pending" value="Laufend" id="pending"/
                     {% if blubber['pending'] %}checked{% else %}{% endif %}>
@@ -213,7 +147,7 @@
                     <input type="date" name="lastChange" value="{{today}}"></label><br>
         <input class="super_btn btn" style="color: #fff" name="submit" value="Eintrag speichern" type="submit">
         {% if mode=='edit' %}
-            <input class="super_btn btn btn_left" style="color: #fff" name="submit" value="Eintrag löschen" type="submit">
+            <a class="super_btn btn btn-right" href="/delete?id={{blubber['id']}}">Eintrag löschen</a>
         {% endif %}
         </form>
         </fieldset>

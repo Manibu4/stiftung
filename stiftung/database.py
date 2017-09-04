@@ -14,7 +14,7 @@ def new_foundation(conn, values):
     cursor = conn.cursor()
 
     cursor.execute("""INSERT INTO foundations VALUES
-    (NULL, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?, ?)""", values)
+    (NULL, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?)""", values)
     conn.commit()
 
 
@@ -23,15 +23,13 @@ def edit_foundation(conn, values):
     cursor = conn.cursor()
     cursor.execute("""UPDATE foundations SET foundationname=?, keyword=?,
       address=?, pnumber=?, mail=?, website=?, contactperson=?, purpose=?,
-      kindofboost=?, sum=?, currency=?, hitword=?, groups=?, broadness=?,
-      condDoc=?, condSci=?, condElse=?, condAge=?, condEText=?, deadline=?,
-      pending=?, noInfo=?, resContact=?, notes=?, timeContact=?, lastChange=?
-      WHERE id=?""", \
+      kindofboost=?, sum=?, currency=?, broadness=?, acadDegree=?, condElse=?,
+      deadline=?, variabel=?, fix=?, pending=?, noInfo=?, resContact=?,
+      notes=?, timeContact=?, lastChange=?, deleted=0 WHERE id=?""", \
       (values[0], values[1], values[2], values[3], values[4], values[5], \
        values[6], values[7], values[8], values[9], values[10], values[11], \
        values[12], values[13], values[14], values[15], values[16], values[17], \
-       values[18], values[19], values[20], values[21], values[22], values[23], \
-       values[24], values[25], values[26]))
+       values[18], values[19], values[20], values[21], values[22], values[23] ))
     conn.commit()
 
 
@@ -52,19 +50,6 @@ def handle_checkboxes(box_values):
     return box_joint_vals
 
 
-def unique_check(deadline, pending, no_info):
-    """ This function checks whether more than one of the following fields
-        'a date', 'pending' or 'no information'
-        have been selected in the form.
-        If yes, an error message is displayed as choosing more than one
-        option is not considered valid.
-    """
-    if (deadline and pending) or (deadline and no_info) or (pending and no_info):
-        return 1
-    else:
-        return 0
-
-
 def make_nice_display(text_in):
     """ This function takes in an array of strings and rearranges
         them into a form which is nicely displayable in a table
@@ -73,26 +58,18 @@ def make_nice_display(text_in):
     if text_in:
         for i in range(0, len(text_in)):
             cont = {}
-            # unklar ob das do no witer nötig isch...
-            # cont["kindofboost"] = text_in[i]["kindofboost"].split("/")
-            # cont["hitword"] = text_in[i]["hitword"].split("/")
-            # cont["groups"] = text_in[i]["groups"].split("/")
-            # cont["condDoc"] = text_in[i]["condDoc"].split("/")
-            # cont["condSci"] = text_in[i]["condSci"].split("/")
-            # cont["condElse"] = text_in[i]["condElse"].split("/")
-            # if text_in[i]["condEText"]:
-                # cont["condEText"] = text_in[i]["condEText"].split("/")
-            # else:
-                # cont["condEText"] = ''
-            
-            if text_in[i]["deadline"]:
+            if text_in[i]["deadline"] and text_in[i]["fix"]:
+                cont["frist"] = text_in[i]["deadline"] + ' (' + text_in[i]["fix"] + ')'
+            elif text_in[i]["deadline"] and text_in[i]["variabel"]:
+                cont["frist"] = text_in[i]["deadline"] + ' (' + text_in[i]["variabel"] + ')'
+            elif text_in[i]["deadline"]:
                 cont["frist"] = text_in[i]["deadline"]
             elif text_in[i]["pending"]:
                 cont["frist"] = text_in[i]["pending"]
             elif text_in[i]["noInfo"]:
                 cont["frist"] = text_in[i]["noInfo"]
             else:
-                cont["frist"] = ''
+                cont["fristmove row to another"] = ''
 
             cont["broadness"] = text_in[i]["broadness"].split(" / ")
             display.append(cont)
@@ -115,28 +92,16 @@ def find_entries(flist, array_search):
     array0 = array_search[0].split(" / ")
     array1 = array_search[1].split(" / ")
     array2 = array_search[2].split(" / ")
-    array3 = array_search[3].split(" / ")
-    array4 = array_search[4].split(" / ")
-    array5 = array_search[5].split(" / ")
-    array6 = array_search[6]
 
     for one_item in flist:
         zero = one_item["kindofboost"].split(" / ")
-        one = one_item["groups"].split(" / ")
-        two = one_item["broadness"].split(" / ")
-        three = one_item["condDoc"].split(" / ")
-        four = one_item["condSci"].split(" / ")
-        five = one_item["condElse"].split(" / ")
-        six = one_item["condAge"]
+        one =  one_item["broadness"].split(" / ")
+        two = one_item["acadDegree"].split(" / ")
 
         if ((array0 == [''] or zero == [''] or (str('Keine Angabe') in zero)
              or set(array0) <= set(zero)) and
                 (array1 == [''] or one == [''] or set(array1) <= set(one)) and
-                (array2 == [''] or two == [''] or set(array2) <= set(two)) and
-                (array3 == [''] or three == [''] or set(array3) <= set(three)) and
-                (array4 == [''] or four == [''] or set(array4) <= set(four)) and
-                (array5 == [''] or five == [''] or set(array5) <= set(five)) and
-                (array6 == '' or six == '' or int(array6) <= int(six))):
+                (array2 == [''] or two == [''] or set(array2) <= set(two)) ):
             array.append(int(one_item["id"]))
 
     return array

@@ -27,6 +27,8 @@
                 <td><a href="/show_card?id={{item['id']}}" target="_blank">{{item['foundationname']}}</a>
                 </td>
                 <td>{% if item['pending'] %} {{item['pending']}}
+                    {% elif item['deadline'] and item['fix'] %} {{item['deadline']}} ({{item['fix']}})
+                    {% elif item['deadline'] and item['variabel'] %} {{item['deadline']}} ({{item['variabel']}})
                     {% elif item['deadline'] %} {{item['deadline']}}
                     {% else %} Keine Angabe
                     {% endif %}

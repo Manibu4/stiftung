@@ -18,9 +18,23 @@
             <td style="padding-right: 10px">
                 <a class="btn super_btn" href="/search">Datenbank durchsuchen</a>
             </td>
+            {% if log=='false' %}
             <td>
-                <a class="btn super_btn" href="/login" method='post'>Neue Stiftung erfassen</a>
+                <a class="btn super_btn" href="/login">Login</a>
             </td>
+            {% elif log=='true' or log=='super' %}
+            <td style="padding-right: 10px">
+                <a class="btn super_btn" href="/formular" method='post'>Neue Stiftung erfassen</a>
+            </td>
+            <td>
+                <a class="btn super_btn" href="/logout">Logout</a>
+            </td>
+            {% endif %}
+            {% if log=='super' %}
+            <td style="padding-left: 100px">
+                <a class="btn super_btn" href="/super_show" method='post'>DB verwalten</a>
+            </td>
+            {% endif %}
         </tr>
         </table>
         </div>
@@ -31,9 +45,34 @@
         <table width=50%>
             {% for item in items %}
                 <tr>
-                    <td class="fw4"><a href="/show_card?id={{item[0]}}" target="_blank">{{item[1]}}</a></td>
-                    <td style="text-align: right"><a class="btn" href="/login?id={{item[0]}}">Eintrag bearbeiten</a>
+                    <td class="fw4">
+                        <a href="/show_card?id={{item[0]}}" target="_blank">{{item[1]}}</a>
                     </td>
+                    {% if log=='true' or log=='super' %}
+                    <td style="text-align: right">
+                        <a class="btn" href="/formular?id={{item[0]}}">Eintrag bearbeiten</a>
+                    </td>
+                    {% endif %}
+                    {% if log=='super' and item[2] %}
+                    <td style="text-align: right">
+                        <a class="btn" href="/restore?id={{item[0]}}" method='post'>
+                            Eintrag wiederherstellen
+                        </a>
+                    </td>
+                    {% elif log=='super' %}
+                    <td style="text-align: right">
+                        <a class="btn" href="/delete?id={{item[0]}}" method='post'>
+                            Eintrag deaktivieren
+                        </a>
+                    </td>
+                    {% endif %}
+                    {% if log=='super' %}
+                    <td style="text-align: right">
+                        <a class="btn" href="/permanent_delete?id={{item[0]}}" method='post'>
+                            Eintrag löschen
+                        </a>
+                    </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </table>
