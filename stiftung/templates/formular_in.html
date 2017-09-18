@@ -116,6 +116,9 @@
             <label>Weitere Bedingungen
                 <textarea class="large-input" type="textarea" name="condElse">{{blubber['condElse']}}</textarea>
             </label>
+            <label>Sondierungsanfrage schicken </label>
+                <input type="checkbox" name="sondierung" value="Ja" id="sondierung"/
+                {% if blubber['sondierung'] %}checked{% else %}{% endif %}><br><br>
             <label class="foundation-nebenand foundation-checkbox">Einreichefrist<br><br>
                 <label for="deadline1">Datum 1:</label>
                 <input type="date" name="deadline1" id="deadline1" pattern="[0-9]{2}.[0-9]{2}." placeholder="dd.mm."/

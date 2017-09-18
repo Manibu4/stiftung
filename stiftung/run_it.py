@@ -183,11 +183,12 @@ def formular_add():
     broadness = handle_checkboxes(broadness)
     acad_degree = request.form.getlist("acadDegree")
     acad_degree = handle_checkboxes(acad_degree)
+    sondierung = request.form.get("sondierung")
 
     array = [name, keyword, adress, phone, mail, website, contact_person,
              zweck, kind_of_boost, money, currency, broadness, acad_degree,
              cond_else, deadline, variabel, fix, pending, no_info, res_contact,
-             notes, time_contact, last_change, 0]
+             notes, time_contact, last_change, 0, sondierung]
 
     if mode == 'new':
         cursor.execute("""SELECT foundationname FROM foundations WHERE
@@ -203,6 +204,7 @@ def formular_add():
                           foundationname LIKE ?""", (name,))
         fetch_id = cursor.fetchone()
         array.append(fetch_id[0])
+        print(array)
         edit_foundation(conn, array)
         return redirect(url_for('main'))
 

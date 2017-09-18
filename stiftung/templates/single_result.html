@@ -66,6 +66,10 @@
                 <td> Weitere Bedingungen: </td>
                 <td> {{ item["condElse"] }} </td>
                 </tr>{% endif %}
+                {% if item["sondierung"] %}<tr>
+                <td> </td>
+                <td> Sondierungsantrag schicken </td>
+                </tr>{% endif %}
 
                 {% if display["frist"] %}<tr>
                 <td> Einreichefrist: </td>

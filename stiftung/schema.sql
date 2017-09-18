@@ -23,5 +23,6 @@ create table if not exists foundations (
     notes text,
     timeContact text,
     lastChange text,
-    deleted integer
+    deleted integer,
+    sondierung text
 );
