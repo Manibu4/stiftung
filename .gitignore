@@ -104,3 +104,4 @@ instance
 .DS_Store
 *.db
 stiftung/bin
+modify_db.py
