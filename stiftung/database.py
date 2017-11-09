@@ -14,23 +14,23 @@ def new_foundation(conn, values):
     cursor = conn.cursor()
 
     cursor.execute("""INSERT INTO foundations VALUES
-    (NULL, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?)""", values)
+    (NULL, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?)""", values)
     conn.commit()
 
 
 def edit_foundation(conn, values):
     """ Creates a new database entry for a foundation """
     cursor = conn.cursor()
-    cursor.execute("""UPDATE foundations SET foundationname=?, keyword=?,
-      address=?, pnumber=?, mail=?, website=?, contactperson=?, purpose=?,
-      kindofboost=?, sum=?, currency=?, broadness=?, acadDegree=?, condElse=?,
-      deadline=?, variabel=?, fix=?, pending=?, noInfo=?, resContact=?,
-      notes=?, timeContact=?, lastChange=?, deleted=?, sondierung=? WHERE id=?""", \
+    cursor.execute("""UPDATE foundations SET foundationname=?, address=?,
+      pnumber=?, mail=?, website=?, contactperson=?, purpose=?, kindofboost=?,
+      sum=?, currency=?, broadness=?, acadDegree=?, condElse=?, deadline=?,
+      variabel=?, fix=?, pending=?, noInfo=?, resContact=?, notes=?,
+      timeContact=?, lastChange=?, deleted=?, sondierung=? WHERE id=?""", \
       (values[0], values[1], values[2], values[3], values[4], values[5], \
        values[6], values[7], values[8], values[9], values[10], values[11], \
        values[12], values[13], values[14], values[15], values[16], values[17], \
        values[18], values[19], values[20], values[21], values[22], values[23],\
-       values[24], values[25] ))
+       values[24] ))
     conn.commit()
 
 
@@ -87,22 +87,28 @@ def find_entries(flist, array_search):
         It checks if array_search is a subset (except if the field in flist
         is empty) of any of the rows in the db and with an empty set in
         array_search always being a subset.
-        The condition on the maximal age is, of course, considered accordingly.
     """
     array = []
     array0 = array_search[0].split(" / ")
-    array1 = array_search[1].split(" / ")
-    array2 = array_search[2].split(" / ")
+    array1 = array_search[1]
+    print(array1)
+    # array2 = array_search[2].split(" / ")
 
     for one_item in flist:
-        zero = one_item["kindofboost"].split(" / ")
-        one =  one_item["broadness"].split(" / ")
-        two = one_item["acadDegree"].split(" / ")
+        zero = one_item["broadness"].split(" / ")
+        one =  one_item["sondierung"]
+        print(one)
+        # two = one_item["acadDegree"].split(" / ")
 
-        if ((array0 == [''] or zero == [''] or (str('Keine Angabe') in zero)
-             or set(array0) <= set(zero)) and
-                (array1 == [''] or one == [''] or set(array1) <= set(one)) and
-                (array2 == [''] or two == [''] or set(array2) <= set(two)) ):
+        # if ((array0 == [''] or zero == [''] or (str('Keine Angabe') in zero)
+        #      or set(array0) <= set(zero)) and
+        #         (array1 == [''] or one == [''] or set(array1) <= set(one)) and
+        #         (array2 == [''] or two == [''] or set(array2) <= set(two)) ):
+        #     array.append(int(one_item["id"]))
+
+        if ((array0 == [''] or zero == [''] or set(array0) <= set(zero)) and
+            (array1 == '' or one == '' or ('Mit' in array1 and one=='Ja')
+                                       or ('Ohne' in array1 and one!='Ja') )) :
             array.append(int(one_item["id"]))
 
     return array

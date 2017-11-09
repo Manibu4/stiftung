@@ -142,7 +142,6 @@ def formular_add():
     cursor = conn.cursor()
     mode = request.form["mode"]
     name = request.form["name"]
-    keyword = request.form["keyword"]
     adress = request.form["adress"]
     phone = request.form["phone"]
     mail = request.form["mail"]
@@ -185,7 +184,7 @@ def formular_add():
     acad_degree = handle_checkboxes(acad_degree)
     sondierung = request.form.get("sondierung")
 
-    array = [name, keyword, adress, phone, mail, website, contact_person,
+    array = [name, adress, phone, mail, website, contact_person,
              zweck, kind_of_boost, money, currency, broadness, acad_degree,
              cond_else, deadline, variabel, fix, pending, no_info, res_contact,
              notes, time_contact, last_change, 0, sondierung]
@@ -252,15 +251,25 @@ def do_search():
     cursor = conn.execute('SELECT * FROM foundations')
     items = cursor.fetchall()
 
-    kind_of_boost = request.form.getlist("kindOfBoost")
-    kind_of_boost = handle_checkboxes(kind_of_boost)
+    # kind_of_boost = request.form.getlist("kindOfBoost")
+    # kind_of_boost = handle_checkboxes(kind_of_boost)
     broadness = request.form.getlist("broadness")
     broadness = handle_checkboxes(broadness)
-    acad_degree = request.form.getlist("acadDegree")
-    acad_degree = handle_checkboxes(acad_degree)
-    search_array = [kind_of_boost, broadness, acad_degree]
+    sondierung = request.form.getlist("sondierung")
+    sondierung = handle_checkboxes(sondierung)
+
+    if '/' in sondierung:
+        return render_template('error4.html')
+
+    # acad_degree = request.form.getlist("acadDegree")
+    # acad_degree = handle_checkboxes(acad_degree)
+    # search_array = [kind_of_boost, broadness, acad_degree]
+
+    search_array = [broadness, sondierung]
 
     indices = find_entries(items, search_array)
+    print(indices)
+    # indices = []
     items = []
     for i in range(0, len(indices)):
         cursor = conn.execute("""SELECT id, foundationname, deadline, variabel,

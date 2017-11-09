@@ -1,7 +1,6 @@
 create table if not exists foundations (
     ID INTEGER PRIMARY KEY AUTOINCREMENT,
     foundationname text,
-    keyword text,
     address text,
     pnumber text,
     mail text,
