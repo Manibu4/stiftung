@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<head>
+  <title>Informationen</title>
+  <link rel="stylesheet" href="{{url_for('static', filename='assets/stylesheet/main.css') }}">
+</head>
+
+<body>
+    <header class="primary-header container group">
+        <h1 class="logo" ><a href="/">Universitätsspital Basel<br>Stiftungsdatenbank</a></h1>
+    </header>
+    <!---->
+    <section class="row">
+        <div class="grid">
+            <label>Pdf:
+                <ul>
+                    <li>
+                        <a href="{{url_for('static', filename='Uploads/Magnus1949.pdf') }}"
+                        target="_blank"> Pdf1 </a>
+                    </li>
+                </ul>
+            </label><br><br>
+
+            <label>Links:
+            <ul>
+                <li>
+                    <a href="http://www.dfg.de/" target="_blank">
+                        Deutsche Forschungsgesellschaft</a>
+                </li>
+            </ul>
+            </label>
+        </div>
+    </section>
+    <footer class="primary-footer container group">Homepage designed by Manibu</footer>
+</body>
+</html>

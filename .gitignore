@@ -105,3 +105,4 @@ instance
 *.db
 stiftung/bin
 modify_db.py
+Uploads

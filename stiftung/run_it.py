@@ -230,8 +230,13 @@ def p_delete():
     cursor = conn.cursor()
     cursor.execute('DELETE FROM foundations WHERE id=?', (get_id,))
     conn.commit()
-    return redirect(url_for('main'))
+    return render_template(url_for('main'))
 
+
+@blu.route('/infos')
+def information():
+    """ Display information site """
+    return render_template('information.html')
 
 
 @blu.route('/search')
