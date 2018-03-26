@@ -91,13 +91,13 @@ def find_entries(flist, array_search):
     array = []
     array0 = array_search[0].split(" / ")
     array1 = array_search[1]
-    print(array1)
+    # print(array1)
     # array2 = array_search[2].split(" / ")
 
     for one_item in flist:
         zero = one_item["broadness"].split(" / ")
         one =  one_item["sondierung"]
-        print(one)
+        # print(one)
         # two = one_item["acadDegree"].split(" / ")
 
         # if ((array0 == [''] or zero == [''] or (str('Keine Angabe') in zero)
@@ -110,6 +110,11 @@ def find_entries(flist, array_search):
             (array1 == '' or one == '' or ('Mit' in array1 and one=='Ja')
                                        or ('Ohne' in array1 and one!='Ja') )) :
             array.append(int(one_item["id"]))
+    
+
+    # print(array[0])
+    # array_new = sort_by_date(array)
+    # print(array[0])
 
     return array
 
@@ -120,8 +125,8 @@ def sort_by_date(items):
         Second part: no information
         Third part: Pending 
     """
-    now = datetime.datetime.now()
-    today = now.strftime("%d.%m")
+    # now = datetime.datetime.now()
+    # today = now.strftime("%d.%m")
     zw_1 = []
     zw_2 = []
     zw_3 = []
@@ -135,10 +140,10 @@ def sort_by_date(items):
     items = zw_2 + zw_3
     
     # dateVec = []
-    for item in zw_1:
-        dates = item['deadline'].split(" / ")
-        for date in dates:
-            print(datetime.datetime.strptime(str(date), "%d.%m").strftime("%d.%m")-today)
+    # for item in zw_1:
+    #     dates = item['deadline'].split(" / ")
+    #     for date in dates:
+    #         print(datetime.datetime.strptime(str(date), "%d.%m").strftime("%d.%m")-today)
             
             # blii = datetime.datetime.strftime(datetime.date(date), "%d.%m")-today
             # dateVec.append(blii)
