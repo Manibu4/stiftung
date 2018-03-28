@@ -119,10 +119,10 @@
                 {% if blubber['sondierung'] %}checked{% else %}{% endif %}><br><br>
             <label class="foundation-nebenand foundation-checkbox">Einreichefrist<br><br>
                 <label for="deadline1">Datum 1:</label>
-                <input type="date" name="deadline1" id="deadline1" pattern="[0-9]{2}.[0-9]{2}." placeholder="dd.mm."/
+                <input name="deadline1" id="deadline1" pattern="[0-9]{2}.[0-9]{2}." placeholder="dd.mm."/
                   {% if blubber['deadline'] %}value="{{blubber['deadline'][0:6]}}"{% endif %}>
                 <label for="deadline2">Datum 2:</label>
-                <input type="date" name="deadline2" id="deadline2" pattern="[0-9]{2}.[0-9]{2}." placeholder="dd.mm."/
+                <input name="deadline2" id="deadline2" pattern="[0-9]{2}.[0-9]{2}." placeholder="dd.mm."/
                   {% if (blubber['deadline']|length>10) %}value="{{blubber['deadline'][9:15]}}"{% endif %}><br>
                 <label for="variabel">Ändert Jährlich</label>
                 <input type="checkbox" name="variabel" value="Variabel" id="variabel"/
@@ -138,14 +138,14 @@
                         {% if blubber['noInfo'] %}checked{% else %}{% endif %}><br><br>
             </label>
             <label>Zeitpunkt mdl. Kontakt
-                <input type="date" name="timeContact" id="timeContact" pattern="[0-9]{2}.[0-9]{2}.[0-9]{2}" /
-                 max="17-21-06" placeholder="dd.mm.yy" value="{{blubber['timeContact']}}"></label><br>
+                <input name="timeContact" id="timeContact" pattern="[0-9]{2}.[0-9]{2}.[0-9]{2}" /
+                  placeholder="dd.mm.yy" value="{{blubber['timeContact']}}"></label><br>
             <label>Ergebnis
                 <textarea class="large-input" type="textarea" name="resContact" id="resContact">{{blubber['resContact']}}</textarea></label>
             <label>Notizen
                 <textarea class="large-input" type="textarea" name="notes" id="notes">{{blubber['notes']}}</textarea></label>
             <label>Datum der letzten Änderung
-                    <input type="date" name="lastChange" value="{{today}}"></label><br>
+                    <input name="lastChange" value="{{today}}"></label><br><br>
         <input class="super_btn btn" style="color: #fff" name="submit" value="Eintrag speichern" type="submit">
         {% if mode=='edit' %}
             <a class="super_btn btn btn-right" href="/delete?id={{blubber['id']}}">Eintrag löschen</a>
